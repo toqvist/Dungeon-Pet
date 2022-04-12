@@ -1,43 +1,28 @@
 import { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
+// import {orchy1_idle} from './assets/pets/Orchy/orchy1_idle.png'
+import orchy1_idle from './orchy1_idle.png'
+import sprite from './sprite.css'
+import { SpriteAnimator } from 'react-sprite-animator'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.jsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
+      <div className="sprite-container">
+
+        {/* <img src={orchy1_idle} alt="Orchy" width="16px"/> */}
+        <SpriteAnimator
+          sprite={orchy1_idle}
+          shouldAnimate={true}
+          frameCount={4}
+          wrapAfter={4}
+          fps={3}
+          width={16}
+          height={16}
+        />
+
+      </div>
     </div>
   )
 }
