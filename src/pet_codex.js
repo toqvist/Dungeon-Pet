@@ -53,6 +53,7 @@ import zombyBabyRun from './sprites/zomby/1_zomby_run.svg';
 import zombyTeenRun from './sprites/zomby/2_zomby_run.svg'
 import zombyAdultRun from './sprites/zomby/3_zomby_run.svg'
 
+export const petList = ["orky", "shroomy", "impy", "valiant", "zomby"];
 
 export const orky = {
     egg: {
@@ -158,6 +159,7 @@ export function getAnimProps(age) {
             width: 16,
             frameCount: 1,
             fps: 1,
+
         }
     }
     if(age == 'baby') {

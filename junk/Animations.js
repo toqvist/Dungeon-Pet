@@ -23,14 +23,6 @@ import zombyBabyIdle from './sprites/zomby/1_zomby_idle.svg';
 import zombyTeenIdle from './sprites/zomby/2_zomby_idle.svg'
 import zombyAdultIdle from './sprites/zomby/3_zomby_idle.svg'
 
-
-function getAnimation(pet, age, action) {
-    
-}
-
-
-
-
 function getAnimationProps(age) {
 
     if(age == 'egg') {
@@ -39,6 +31,7 @@ function getAnimationProps(age) {
             width: 16,
             frameCount: 1,
             fps: 1,
+            shouldAnimate: false
         }
     }
     if(age == 'baby') {
@@ -47,6 +40,7 @@ function getAnimationProps(age) {
             width: 16,
             frameCount: 4,
             fps: 6,
+            shouldAnimate: true
         }
     }
     if(age == 'teen') {
@@ -55,6 +49,7 @@ function getAnimationProps(age) {
             width: 32,
             frameCount: 4,
             fps: 6,
+            shouldAnimate: true
         }
     }
     if(age == 'adult') {
@@ -63,6 +58,7 @@ function getAnimationProps(age) {
             width: 32,
             frameCount: 4,
             fps: 6,
+            shouldAnimate: true
         }
     }
 
