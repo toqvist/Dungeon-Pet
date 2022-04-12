@@ -1,8 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { getAnimProps } from '../pet_codex'
+import { SpriteAnimator } from 'react-sprite-animator';
 
-export default function Egg({type, sprite, createPet}) {
+export default function Egg({ type, sprite, createPet }) {
 
-  return (
-    <button onClick={() => createPet(type)}>{type}</button>
-  )
+    const [animProps, setAnimProps] = useState(getAnimProps("egg"));
+
+    function handleCreatePet() {
+        createPet(type);
+    }
+
+    return (
+        <button onClick={() => handleCreatePet(type)}>
+            <SpriteAnimator
+                sprite={sprite}
+                shouldAnimate={animProps.shouldAnimate}
+                frameCount={animProps.frameCount}
+                fps={animProps.fps}
+                width={animProps.width}
+                height={animProps.height}
+            />
+
+        </button>
+    )
 }
