@@ -22,6 +22,8 @@ export class Pet {
         this.idle = pet[age].idle
         this.hatching = pet[age].hatching
         this.run = pet[age].run;
+        
+        this.animProps = getAnimProps(age);
 
     }
 
@@ -35,6 +37,45 @@ export class Pet {
 
     addFun(funValue) {
         this.fun += funValue;
+    }
+
+    //Update sprite
+    //Update animProps
+    //Return the new age
+    grow() {
+        const currentAge = this.age
+
+        let newAge
+
+        switch(currentAge) {
+            case 'egg':
+                newAge = 'baby';
+                break;
+            case 'baby':
+                newAge = 'teen';
+                break;
+            case 'teen':
+                newAge = 'adult';
+                break;
+            case 'adult':
+                newAge = 'dead';
+                break;
+            case 'dead':
+                //Do nothing
+                break;
+        }
+        console.log(newAge)
+        const type = this.type
+        const age = newAge
+
+        const pet = petList.find(pet => pet.type === type);
+        this.idle = pet[age].idle
+        this.hatching = pet[age].hatching
+        this.run = pet[age].run;
+        
+        this.animProps = getAnimProps(age);
+
+        return newAge
     }
 
 }

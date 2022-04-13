@@ -5,15 +5,16 @@ import { orky, shroomy, valiant, impy, zomby, getAnimProps, petList } from '../p
 
 
 export default function Pet({ activePet }) {
-    const [animProps, setAnimProps] = useState(getAnimProps(activePet.age));
+    // const [animProps, setAnimProps] = useState(getAnimProps(activePet.age));
+
     return (
         <SpriteAnimator
             sprite={activePet.idle}
-            shouldAnimate={animProps.shouldAnimate}
-            frameCount={animProps.frameCount}
-            fps={animProps.fps}
-            width={animProps.width}
-            height={animProps.height}
+            shouldAnimate={activePet.animProps.shouldAnimate}
+            frameCount={activePet.animProps.frameCount}
+            fps={activePet.animProps.fps}
+            width={activePet.animProps.width}
+            height={activePet.animProps.height}
         />
     )
 }

@@ -35,6 +35,12 @@ function App() {
   }
   function growPet() {
     
+    const newAge = activePet.grow();
+    activePet.age = newAge;
+
+    setAnimProps(getAnimProps(newAge));
+    console.log(activePet.age)
+    
   }
 
   return (
@@ -43,6 +49,7 @@ function App() {
       {activePet ? <div>
         <nav>
           <button onClick={() => resetPet()}>New pet</button>
+          <button onClick={() => growPet()}>Grow pet</button>
         </nav>
         <PetElement activePet={activePet} />
       </div> : <Eggs createPet={createPet} />
