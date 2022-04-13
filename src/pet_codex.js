@@ -190,8 +190,6 @@ export function getAnimProps(age) {
             fps: 6,
         }
     }
-
-    
 }
 //List of pets and their associated sprites
 export const petList = [orky, shroomy, impy, valiant, zomby];
