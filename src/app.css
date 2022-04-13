@@ -1,3 +1,4 @@
+
 .egg:hover {
     transform: scale3d(1.1, 1.1, 1.1);
     transition: transform 0.2s;
@@ -14,4 +15,10 @@
 .button-no-style {
     background-color: transparent;
     border: none;
+}
+.game-grid {
+    /* background-image: url('/sprites/set.svg'); */
+    width: 256px;
+    height: 256px;
+    display: grid;
 }

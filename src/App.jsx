@@ -4,6 +4,7 @@ import { orky, shroomy, valiant, impy, zomby, getAnimProps, petList } from './pe
 import Eggs from './components/Eggs.jsx'
 import PetElement from './components/PetElement.jsx'
 import { Pet } from './Pet.js'
+import set from "./sprites/set.svg";
 
 import './app.css'
 
@@ -38,25 +39,33 @@ function App() {
   return (
     <div className="App">
 
-      {activePet ?
-        <div>
-          <nav>
-            <button onClick={() => resetPet()}>New pet</button>
-            <button onClick={() => growPet()}>Grow pet</button>
-            {activePet.name ?
-              <p>input name: {activePet.name}</p>
-              :
-              <>
-                <input type="text" ref={petNameRef} />
-                <button onClick={() => namePet(petNameRef.current.value)}>Name</button>
-              </>}
-          </nav>
-          <PetElement activePet={activePet} update={update} />
-        </div>
-        : <Eggs createPet={createPet} />
+      {activePet ? <>
+        <nav>
+              <button onClick={() => resetPet()}>New pet</button>
+              <button onClick={() => growPet()}>Grow pet</button>
+              {activePet.name ? <></> :
+                <>
+                  <input type="text" ref={petNameRef} />
+                  <button onClick={() => namePet(petNameRef.current.value)}>Name</button>
+                </>}
+            </nav>
+        </>: <></>}
+      <div style={{ backgroundImage: `url(${set})` }}
+        className='game-grid'
 
-      }
+      >
 
+        {activePet ?
+          <div>
+            
+            <PetElement activePet={activePet} update={update} />
+          </div>
+          : <div>
+            <Eggs createPet={createPet} />
+          </div>
+
+        }
+      </div>
     </div>
   )
 }
