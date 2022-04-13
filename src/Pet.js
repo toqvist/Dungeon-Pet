@@ -2,13 +2,6 @@ import { orky, shroomy, valiant, impy, zomby, getAnimProps, petList } from './pe
 
 export class Pet {
 
-    //idle
-    //hatching
-    //run
-
-    //hunger 0-10, 0=dead
-    //fun 0-10, 0=dead
-
     constructor(type, age) {
         this.type = type;
         this.age = age;
@@ -32,7 +25,7 @@ export class Pet {
         
         this.animProps = getAnimProps(this.age);
 
-        this.timeAlive = 0
+        this.secondsAlive = 0
         //this.intervalID = setInterval(passTime, [1000]);
         this.intervalID = setInterval(this.passTime.bind(this), 1000);
         
@@ -43,8 +36,8 @@ export class Pet {
     }
 
     passTime() {
-        this.timeAlive += 1;
-        if(this.timeAlive% 10 === 0) {
+        this.secondsAlive += 1;
+        if(this.secondsAlive% 10 === 0) {
             this.decay();
         }
     }

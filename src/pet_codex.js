@@ -188,7 +188,7 @@ export function getAnimProps(age) {
 
         }
     }
-    if (age == 'baby') {
+    if (age === 'baby') {
         return {
             height: 16,
             width: 16,
@@ -196,7 +196,7 @@ export function getAnimProps(age) {
             fps: 6,
         }
     }
-    if (age == 'teen') {
+    if (age === 'teen') {
         return {
             height: 32,
             width: 32,
@@ -204,7 +204,7 @@ export function getAnimProps(age) {
             fps: 6,
         }
     }
-    if (age == 'adult') {
+    if (age === 'adult') {
         return {
             height: 32,
             width: 32,

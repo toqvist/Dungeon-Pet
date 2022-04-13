@@ -13,6 +13,8 @@ function App() {
   const [activePet, setActivePet] = useState();
   const [update, setUpdate] = useState(false);
 
+  const [facing, setFacing] = useState("");
+
   const petNameRef = useRef();
   function createPet(type) {
 
@@ -64,7 +66,20 @@ function App() {
         {activePet ?
           <div>
 
-            <PetElement activePet={activePet} update={update} />
+            {/* When pet is a component, the props updating do not cause the component to re-render */}
+            {/* <PetElement activePet={activePet} update={update} /> */}
+            <button onClick={() => flip()} className = 'button-no-style'>
+                <SpriteAnimator
+                    sprite={activePet.idle}
+                    shouldAnimate={activePet.animProps.shouldAnimate}
+                    frameCount={activePet.animProps.frameCount}
+                    fps={activePet.animProps.fps}
+                    width={activePet.animProps.width}
+                    height={activePet.animProps.height}
+                    className={`${facing ? 'facing-left' : ''}`}
+                    
+                />
+            </button>
           </div>
           : <div>
             <Eggs createPet={createPet} />
