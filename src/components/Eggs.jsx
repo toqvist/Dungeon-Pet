@@ -14,7 +14,6 @@ export default function Eggs({createPet}) {
 
         while(selecting) {
             let randomNumber = Math.floor(Math.random() * petList.length)
-            console.log(randomNumber)
             let newEgg = "";
 
             switch (randomNumber) {
