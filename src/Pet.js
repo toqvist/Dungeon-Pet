@@ -14,8 +14,12 @@ export class Pet {
         this.age = age;
 
         this.name = ''
+
         this.hunger = 5;
+        this.maxHunger = 10;
+
         this.fun = 5;
+        this.maxFun = 10;
 
         //Find pet in list
         const pet = petList.find(pet => pet.type === type);
@@ -33,10 +37,16 @@ export class Pet {
 
     addFood(foodValue) {
         this.hunger += foodValue;
+        if (this.hunger > this.maxHunger) {
+            this.hunger = this.maxHunger;
+        }
     }
 
     addFun(funValue) {
         this.fun += funValue;
+        if(this.fun > this.maxFun) {
+            this.fun = this.maxFun;
+        }
     }
 
     //Update sprite

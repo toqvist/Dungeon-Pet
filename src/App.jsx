@@ -36,28 +36,43 @@ function App() {
     activePet.namePet(name);
     setUpdate(!update);
   }
+
+  function feedPet(value) {
+    activePet.addFood(value);
+    setUpdate(!update);
+  }
+  function entertainPet(value) {
+    activePet.addFun(value);
+    setUpdate(!update);
+  }
+
   return (
     <div className="App">
 
       {activePet ? <>
         <nav>
-              <button onClick={() => resetPet()}>New pet</button>
-              <button onClick={() => growPet()}>Grow pet</button>
-              {activePet.name ? <></> :
-                <>
-                  <input type="text" ref={petNameRef} />
-                  <button onClick={() => namePet(petNameRef.current.value)}>Name</button>
-                </>}
-            </nav>
-        </>: <></>}
+          <button onClick={() => resetPet()}>New pet</button>
+          <button onClick={() => growPet()}>Grow pet</button>
+          {activePet.name ? <></> :
+            <>
+              <input type="text" ref={petNameRef} />
+              <button onClick={() => namePet(petNameRef.current.value)}>Name</button>
+            </>}
+        </nav>
+        
+        <nav className='top-bar'>
+          <p>hunger:{activePet.hunger} fun: {activePet.fun}</p>
+          <button onClick={() => feedPet(2)}>Feed</button>
+          <button onClick={() => entertainPet(2)}>Pet</button>
+        </nav>
+        
+      </> : <></>}
       <div style={{ backgroundImage: `url(${set})` }}
-        className='game-grid'
-
-      >
+        className='game-grid'>
 
         {activePet ?
           <div>
-            
+
             <PetElement activePet={activePet} update={update} />
           </div>
           : <div>
