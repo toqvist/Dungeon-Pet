@@ -17,9 +17,11 @@ export class Pet {
 
         this.hunger = 5;
         this.maxHunger = 10;
+        this.hungerDecay = 1;
 
         this.fun = 5;
         this.maxFun = 10;
+        this.funDecay = 1;
 
         //Find pet in list
         const pet = petList.find(pet => pet.type === type);
@@ -31,7 +33,7 @@ export class Pet {
 
         this.timeAlive = 0
         //this.intervalID = setInterval(passTime, [1000]);
-        this.intervalID = setInterval(this.#passTime.bind(this), 1000);
+        this.intervalID = setInterval(this.passTime.bind(this), 1000);
 
         
     }
@@ -40,9 +42,29 @@ export class Pet {
         clearInterval(this.intervalID);
     }
 
-    #passTime() {
+    passTime() {
         this.timeAlive += 1;
+        if(this.timeAlive% 10 === 0) {
+            this.decay();
+        }
     }
+    
+    decay() {
+        this.hunger -= this.hungerDecay;
+        this.fun -= this.funDecay;
+
+        console.log(this.hunger)
+        console.log(this.fun)
+        if(this.hunger <= 0 || this.fun <= 0) {
+            this.die();
+        }
+    }
+    die() {
+        this.stopTimer();
+        console.log('pet died')
+        this.age = 'dead';
+    }
+
 
     namePet(inputName) {
         this.name = inputName;
