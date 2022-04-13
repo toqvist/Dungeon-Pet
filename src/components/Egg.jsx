@@ -12,7 +12,7 @@ export default function Egg({ type, sprite, createPet }) {
 
     return (
         <button onClick={() => handleCreatePet(type)}
-        className='egg'>
+        className='button-no-style'>
             <SpriteAnimator
                 sprite={sprite}
                 shouldAnimate={animProps.shouldAnimate}
