@@ -12,6 +12,7 @@ export class Pet {
     constructor(type, age) {
         this.type = type;
         this.age = age;
+        this.isAlive = true;
 
         this.name = ''
 
@@ -34,7 +35,6 @@ export class Pet {
         this.timeAlive = 0
         //this.intervalID = setInterval(passTime, [1000]);
         this.intervalID = setInterval(this.passTime.bind(this), 1000);
-
         
     }
     
@@ -53,8 +53,8 @@ export class Pet {
         this.hunger -= this.hungerDecay;
         this.fun -= this.funDecay;
 
-        console.log(this.hunger)
-        console.log(this.fun)
+        console.log('hunger: ' +this.hunger)
+        console.log('fun: ' +this.fun)
         if(this.hunger <= 0 || this.fun <= 0) {
             this.die();
         }
@@ -63,6 +63,7 @@ export class Pet {
         this.stopTimer();
         console.log('pet died')
         this.age = 'dead';
+        this.isAlive = false;
     }
 
 
@@ -106,7 +107,7 @@ export class Pet {
                 newAge = 'dead';
                 break;
             case 'dead':
-                //Do nothing
+                newAge = 'dead';
                 break;
         }
         console.log(newAge)

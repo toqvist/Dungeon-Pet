@@ -53,24 +53,30 @@ import zombyBabyRun from './sprites/zomby/1_zomby_run.svg';
 import zombyTeenRun from './sprites/zomby/2_zomby_run.svg'
 import zombyAdultRun from './sprites/zomby/3_zomby_run.svg'
 
+import skellyIdle from './sprites/skelly/4_skelly_idle.svg';
+import skellyRun from './sprites/skelly/4_skelly_run.svg';
 
- export const orky = {
+export const orky = {
     type: 'orky',
-    egg : {
+    egg: {
         idle: orkyEggIdle,
         hatching: orkyEggHatching,
     },
-    baby : {
+    baby: {
         idle: orkyBabyIdle,
         run: orkyBabyRun,
     },
-    teen : {
+    teen: {
         idle: orkyTeenIdle,
         run: orkyTeenRun,
     },
-    adult : {
+    adult: {
         idle: orkyAdultIdle,
         run: orkyAdultRun,
+    },
+    dead: {
+        idle: skellyIdle,
+        run: skellyRun,
     }
 }
 
@@ -92,6 +98,10 @@ export const shroomy = {
     adult: {
         idle: shroomyAdultIdle,
         run: shroomyAdultRun,
+    },
+    dead: {
+        idle: skellyIdle,
+        run: skellyRun,
     }
 }
 //Create an object for impy
@@ -112,6 +122,10 @@ export const impy = {
     adult: {
         idle: impyAdultIdle,
         run: impyAdultRun,
+    },
+    dead: {
+        idle: skellyIdle,
+        run: skellyRun,
     }
 }
 //Create an object for valiant
@@ -132,6 +146,10 @@ export const valiant = {
     adult: {
         idle: valiantAdultIdle,
         run: valiantAdultRun,
+    }, 
+    dead: {
+        idle: skellyIdle,
+        run: skellyRun,
     }
 }
 //Create an object for zomby
@@ -152,12 +170,16 @@ export const zomby = {
     adult: {
         idle: zombyAdultIdle,
         run: zombyAdultRun,
+    },
+    dead: {
+        idle: skellyIdle,
+        run: skellyRun,
     }
 }
 
 export function getAnimProps(age) {
 
-    if(age == 'egg') {
+    if (age == 'egg') {
         return {
             height: 16,
             width: 16,
@@ -166,7 +188,7 @@ export function getAnimProps(age) {
 
         }
     }
-    if(age == 'baby') {
+    if (age == 'baby') {
         return {
             height: 16,
             width: 16,
@@ -174,7 +196,7 @@ export function getAnimProps(age) {
             fps: 6,
         }
     }
-    if(age == 'teen') {
+    if (age == 'teen') {
         return {
             height: 32,
             width: 32,
@@ -182,7 +204,7 @@ export function getAnimProps(age) {
             fps: 6,
         }
     }
-    if(age == 'adult') {
+    if (age == 'adult') {
         return {
             height: 32,
             width: 32,
@@ -190,6 +212,15 @@ export function getAnimProps(age) {
             fps: 6,
         }
     }
+    if (age === 'dead') {
+        return {
+            height: 16,
+            width: 16,
+            frameCount: 4,
+            fps: 2,
+         }
+    }
+
 }
 //List of pets and their associated sprites
 export const petList = [orky, shroomy, impy, valiant, zomby];
