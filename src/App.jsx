@@ -3,6 +3,7 @@ import { SpriteAnimator } from 'react-sprite-animator'
 import { orky, shroomy, valiant, impy, zomby, getAnimProps, petList } from './pet_codex.js'
 import Eggs from './components/Eggs.jsx'
 import Pet from './components/Pet.jsx'
+import './app.css'
 
 function App() {
 
@@ -76,10 +77,20 @@ function App() {
 
   }
 
+  function resetPet() {
+    setActivePet(null);
+    setAnimProps(getAnimProps("egg"));
+  }
+
   return (
     <div className="App">
 
-      {activePet ? <Pet activePet={activePet} /> : <Eggs createPet={createPet} />
+      {activePet ? <div>
+        <nav>
+          <button onClick={() => resetPet()}>New pet</button>
+        </nav>
+        <Pet activePet={activePet} />
+      </div> : <Eggs createPet={createPet} />
 
       }
 
