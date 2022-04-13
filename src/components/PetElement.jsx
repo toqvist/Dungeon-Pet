@@ -5,7 +5,6 @@ import { orky, shroomy, valiant, impy, zomby, getAnimProps, petList } from '../p
 
 
 export default function Pet({ activePet }) {
-    // const [animProps, setAnimProps] = useState(getAnimProps(activePet.age));
 
     return (
         <SpriteAnimator

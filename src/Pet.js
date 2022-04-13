@@ -23,7 +23,7 @@ export class Pet {
         this.hatching = pet[age].hatching
         this.run = pet[age].run;
         
-        this.animProps = getAnimProps(age);
+        this.animProps = getAnimProps(this.age);
 
     }
 

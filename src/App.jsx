@@ -10,23 +10,12 @@ import './app.css'
 function App() {
 
   const [activePet, setActivePet] = useState();
-  const [animProps, setAnimProps] = useState({
-    height: 32,
-    width: 32,
-    frameCount: 4,
-    fps: 6,
-    shouldAnimate: true
-  });
+  const [update, setUpdate] = useState(false);
 
   function createPet(type) {
 
     let newPet = new Pet(type, 'baby');
-
     setActivePet(newPet);
-
-    const newProps = getAnimProps(newPet.age);
-    setAnimProps(newProps);
-
   }
 
   function resetPet() {
@@ -34,13 +23,12 @@ function App() {
     setAnimProps(getAnimProps("egg"));
   }
   function growPet() {
-    
     const newAge = activePet.grow();
     activePet.age = newAge;
-
-    setAnimProps(getAnimProps(newAge));
-    console.log(activePet.age)
     
+    //PetElement won't update if I don't make a stage change with a setter
+    setUpdate(!update);
+  
   }
 
   return (
@@ -51,7 +39,7 @@ function App() {
           <button onClick={() => resetPet()}>New pet</button>
           <button onClick={() => growPet()}>Grow pet</button>
         </nav>
-        <PetElement activePet={activePet} />
+        <PetElement activePet={activePet} update={update} />
       </div> : <Eggs createPet={createPet} />
 
       }
