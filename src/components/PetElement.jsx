@@ -7,6 +7,9 @@ import { orky, shroomy, valiant, impy, zomby, getAnimProps, petList } from '../p
 export default function Pet({ activePet }) {
 
     return (
+        <>
+        <p>{activePet.name ? activePet.name : 'this'} is a {activePet.age} {activePet.type}</p>
+        
         <SpriteAnimator
             sprite={activePet.idle}
             shouldAnimate={activePet.animProps.shouldAnimate}
@@ -15,5 +18,6 @@ export default function Pet({ activePet }) {
             width={activePet.animProps.width}
             height={activePet.animProps.height}
         />
+        </>
     )
 }
