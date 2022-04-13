@@ -29,6 +29,19 @@ export class Pet {
         
         this.animProps = getAnimProps(this.age);
 
+        this.timeAlive = 0
+        //this.intervalID = setInterval(passTime, [1000]);
+        this.intervalID = setInterval(this.#passTime.bind(this), 1000);
+
+        
+    }
+    
+    stopTimer( ) {
+        clearInterval(this.intervalID);
+    }
+
+    #passTime() {
+        this.timeAlive += 1;
     }
 
     namePet(inputName) {
