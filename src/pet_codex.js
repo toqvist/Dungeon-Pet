@@ -53,26 +53,54 @@ import zombyBabyRun from './sprites/zomby/1_zomby_run.svg';
 import zombyTeenRun from './sprites/zomby/2_zomby_run.svg'
 import zombyAdultRun from './sprites/zomby/3_zomby_run.svg'
 
-export const petList = ["orky", "shroomy", "impy", "valiant", "zomby"];
 
-export const orky = {
-    egg: {
+//List of pets and their associated sprites
+export const petList = [orky, shroomy, impy, valiant, zomby];
+
+
+const orky = {
+    [
+    {
+        age: 'egg',
         idle: orkyEggIdle,
-        hatching: orkyEggHatching,
+        run: orkyEgyHatching,
     },
-    baby: {
+    {
+        age: 'baby',
         idle: orkyBabyIdle,
         run: orkyBabyRun,
     },
-    teen: {
+    {
+        age: 'teen',
         idle: orkyTeenIdle,
         run: orkyTeenRun,
     },
-    adult: {
+    {
+        age: 'adult',
         idle: orkyAdultIdle,
         run: orkyAdultRun,
-    }
+    },
+    ]
 }
+
+//  const orky = {
+//     egg : {
+//         idle: orkyEggIdle,
+//         hatching: orkyEggHatching,
+//     },
+//     baby : {
+//         idle: orkyBabyIdle,
+//         run: orkyBabyRun,
+//     },
+//     teen : {
+//         idle: orkyTeenIdle,
+//         run: orkyTeenRun,
+//     },
+//     adult : {
+//         idle: orkyAdultIdle,
+//         run: orkyAdultRun,
+//     }
+// }
 
 //Create an object for shroomy
 export const shroomy = {
