@@ -1,13 +1,13 @@
-import { orky, shroomy, valiant, impy, zomby, getAnimProps, petList } from '../pet_codex.js'
+import { orky, shroomy, valiant, impy, zomby, getAnimProps, petList } from './pet_codex.js'
 
-class Pet {
+export class Pet {
 
     //idle
     //hatching
     //run
 
-    //hunger 0-10 0=dead
-    //fun 0-10 0=dead
+    //hunger 0-10, 0=dead
+    //fun 0-10, 0=dead
 
     constructor(type, age) {
         this.type = type;
@@ -18,6 +18,15 @@ class Pet {
         this.fun = 5;
 
         // this.sprites = getSprites(type, age);
+
+        //Find pet in list
+        const pet = petList.find(pet => pet.type === type);
+        console.log(pet);
+        this.idle = pet[age].idle
+        this.hatching = pet[age].hatching
+        this.run = pet[age].run;
+
+        
 
     }
 
@@ -39,9 +48,11 @@ class Pet {
         const pet = petList.find(pet => pet.type === type);
 
         let sprites = {};
+
         sprites[idle] = pet[age].idle;
+
         if (age === 'egg') {
-            sprites[hatching ]= pet[age].hatching
+            sprites[hatching] = pet[age].hatching
         }
         else {
             sprites[run] = pet[age].run;

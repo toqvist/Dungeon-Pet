@@ -54,56 +54,29 @@ import zombyTeenRun from './sprites/zomby/2_zomby_run.svg'
 import zombyAdultRun from './sprites/zomby/3_zomby_run.svg'
 
 
-//List of pets and their associated sprites
-export const petList = [orky, shroomy, impy, valiant, zomby];
-
-
-const orky = {
-    [
-    {
-        age: 'egg',
+ export const orky = {
+    type: 'orky',
+    egg : {
         idle: orkyEggIdle,
-        run: orkyEgyHatching,
+        hatching: orkyEggHatching,
     },
-    {
-        age: 'baby',
+    baby : {
         idle: orkyBabyIdle,
         run: orkyBabyRun,
     },
-    {
-        age: 'teen',
+    teen : {
         idle: orkyTeenIdle,
         run: orkyTeenRun,
     },
-    {
-        age: 'adult',
+    adult : {
         idle: orkyAdultIdle,
         run: orkyAdultRun,
-    },
-    ]
+    }
 }
-
-//  const orky = {
-//     egg : {
-//         idle: orkyEggIdle,
-//         hatching: orkyEggHatching,
-//     },
-//     baby : {
-//         idle: orkyBabyIdle,
-//         run: orkyBabyRun,
-//     },
-//     teen : {
-//         idle: orkyTeenIdle,
-//         run: orkyTeenRun,
-//     },
-//     adult : {
-//         idle: orkyAdultIdle,
-//         run: orkyAdultRun,
-//     }
-// }
 
 //Create an object for shroomy
 export const shroomy = {
+    type: 'shroomy',
     egg: {
         idle: shroomyEggIdle,
         hatching: shroomyEggHatching,
@@ -123,6 +96,7 @@ export const shroomy = {
 }
 //Create an object for impy
 export const impy = {
+    type: 'impy',
     egg: {
         idle: impyEggIdle,
         hatching: impyEggHatching,
@@ -142,6 +116,7 @@ export const impy = {
 }
 //Create an object for valiant
 export const valiant = {
+    type: 'valiant',
     egg: {
         idle: valiantEggIdle,
         hatching: valiantEggHatching,
@@ -161,6 +136,7 @@ export const valiant = {
 }
 //Create an object for zomby
 export const zomby = {
+    type: 'zomby',
     egg: {
         idle: zombyEggIdle,
         hatching: zombyEggHatching,
@@ -215,4 +191,8 @@ export function getAnimProps(age) {
         }
     }
 
+    
 }
+//List of pets and their associated sprites
+export const petList = [orky, shroomy, impy, valiant, zomby];
+
