@@ -11,8 +11,6 @@ import './app.css'
 function App() {
 
   const [activePet, setActivePet] = useState();
-  const [update, setUpdate] = useState(false);
-
 
   const petNameRef = useRef();
 
@@ -28,17 +26,37 @@ function App() {
     setAnimProps(getAnimProps("egg"));
   }
 
+  //returns pet with updated age
   function growPet() {
-    const newAge = activePet.getNewAge(activePet.age);
+    let newAge
+    switch(activePet.age) {
+        case 'egg':
+            newAge = 'baby';
+            break;
+        case 'baby':
+            newAge = 'teen';
+            break;
+        case 'teen':
+            newAge = 'adult';
+            break;
+        case 'adult':
+            newAge = 'dead';
+            break;
+        case 'dead':
+            newAge = 'dead';
+            break;
+    }
     console.log('newage: ' + newAge);
-    setActivePet({
+    const newPet = {
       ...activePet, // Copy the old fields
       age: newAge // But override this one
-    });
+    };
 
-    updateSpriteAnimations(newAge);
+    //newPet is passed this way because otherwise the following function would overwrite changes
+    updateSpriteAnimations(newPet);
 
   }
+
   function namePet(newName) {
     setActivePet({
       ...activePet,
@@ -58,7 +76,6 @@ function App() {
       ...activePet,
       food: newFood 
     });
-
   }
 
   function entertainPet(funValue) {
@@ -69,18 +86,17 @@ function App() {
     } else {
       newFun = currentFun + funValue;
     }
-
     setActivePet({
       ...activePet,
       fun: newFun
     });
-
   }
 
-  function updateSpriteAnimations (age) {
-    
+  //Should always be used to update pet, 
+  function updateSpriteAnimations (newPet) {
+    const age = newPet.age
     //Get the appropriate sprites for the current pet
-    const pet = petList.find(pet => pet.type === activePet.type);
+    const pet = petList.find(pet => pet.type === newPet.type);
     const newIdle = pet[age].idle
     const newHatching = pet[age].hatching
     const newRun = pet[age].run;
@@ -88,7 +104,7 @@ function App() {
     const newAnimprops = getAnimProps(age);
 
     setActivePet({
-      ...activePet, // Copy the old fields
+      ...newPet, // Copy the old fields
       idle : newIdle,
       hatching : newHatching,
       run : newRun,
@@ -101,7 +117,7 @@ function App() {
       run : newRun,
       animProps : newAnimprops
     })
-    setUpdate(!update);
+    
 
   }
 
@@ -122,7 +138,7 @@ function App() {
 
         {activePet ?
           <div>            
-            <PetElement activePet={activePet} update={update} />
+            <PetElement activePet={activePet} />
           </div>
           : <div>
             <Eggs createPet={createPet} />
