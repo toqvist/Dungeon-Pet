@@ -39,9 +39,11 @@ function App() {
     updateSpriteAnimations(newAge);
 
   }
-  function namePet(name) {
-    activePet.namePet(name);
-    setUpdate(!update);
+  function namePet(newName) {
+    setActivePet({
+      ...activePet,
+      name: newName
+    })
   }
 
   function feedPet(foodValue) {

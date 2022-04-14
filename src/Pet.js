@@ -27,7 +27,7 @@ export class Pet {
         this.maxFun = 10;
         this.funDecay = 1;
 
-        //Find pet in list
+        //Find pet in list from pet codex
         const pet = petList.find(pet => pet.type === type);
         this.idle = pet[age].idle
         this.hatching = pet[age].hatching
@@ -70,11 +70,6 @@ export class Pet {
         this.isAlive = false;
     }
 
-
-    namePet(inputName) {
-        this.name = inputName;
-    }
-
     //Returns the new appropriate age of the pet
     getNewAge(age) {
         let newAge
@@ -95,10 +90,7 @@ export class Pet {
                 newAge = 'dead';
                 break;
         }
-        console.log(newAge)
         return newAge
     }
-
-
 
 }
