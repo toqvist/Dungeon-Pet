@@ -19,9 +19,9 @@ export class Pet {
 
         this.name = ''
 
-        this.hunger = 5;
-        this.maxHunger = 10;
-        this.hungerDecay = 1;
+        this.food = 5;
+        this.maxFood = 10;
+        this.foodDecay = 1;
 
         this.fun = 5;
         this.maxFun = 10;
@@ -39,7 +39,6 @@ export class Pet {
         //this.intervalID = setInterval(passTime, [1000]);
         //Maybe bind a function in app to this?
         //this.intervalID = setInterval(this.passTime.bind(this), 1000);
-        
     }
     
     // stopTimer( ) {
@@ -75,60 +74,6 @@ export class Pet {
     namePet(inputName) {
         this.name = inputName;
     }
-
-    addFood(foodValue) {
-        this.hunger += foodValue;
-        if (this.hunger > this.maxHunger) {
-            this.hunger = this.maxHunger;
-        }
-    }
-
-    addFun(funValue) {
-        this.fun += funValue;
-        if(this.fun > this.maxFun) {
-            this.fun = this.maxFun;
-        }
-    }
-
-    //Update sprite
-    //Update animProps
-    //Return the new age
-    grow() {
-        const currentAge = this.age
-
-        let newAge
-
-        switch(currentAge) {
-            case 'egg':
-                newAge = 'baby';
-                break;
-            case 'baby':
-                newAge = 'teen';
-                break;
-            case 'teen':
-                newAge = 'adult';
-                break;
-            case 'adult':
-                newAge = 'dead';
-                break;
-            case 'dead':
-                newAge = 'dead';
-                break;
-        }
-        console.log(newAge)
-        const type = this.type
-        const age = newAge
-
-        const pet = petList.find(pet => pet.type === type);
-        this.idle = pet[age].idle
-        this.hatching = pet[age].hatching
-        this.run = pet[age].run;
-        
-        this.animProps = getAnimProps(age);
-
-        return newAge
-    }
-
 
     //Returns the new appropriate age of the pet
     getNewAge(age) {

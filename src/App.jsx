@@ -37,8 +37,6 @@ function App() {
     });
 
     updateSpriteAnimations(newAge);
-    //PetElement won't update if I don't make a stage change with a setter
-    // setUpdate(!update);
 
   }
   function namePet(name) {
@@ -46,13 +44,35 @@ function App() {
     setUpdate(!update);
   }
 
-  function feedPet(value) {
-    activePet.addFood(value);
-    setUpdate(!update);
+  function feedPet(foodValue) {
+    const currentHunger = activePet.food
+    let newFood
+    if (currentHunger > 10) {
+      newFood = activePet.maxFood
+    } else {
+      newFood = currentHunger + foodValue
+    }
+    setActivePet({
+      ...activePet,
+      food: newFood 
+    });
+
   }
-  function entertainPet(value) {
-    activePet.addFun(value);
-    setUpdate(!update);
+
+  function entertainPet(funValue) {
+    const currentFun = activePet.fun;
+    let newFun
+    if ( (currentFun+funValue) > activePet.maxFun ) {
+      newFun = activePet.maxFun;
+    } else {
+      newFun = currentFun + funValue;
+    }
+
+    setActivePet({
+      ...activePet,
+      fun: newFun
+    });
+
   }
 
   function updateSpriteAnimations (age) {
@@ -88,7 +108,7 @@ function App() {
 
       {activePet ? <>
         <nav className='top-bar'>
-          <p>hunger:{activePet.hunger} fun: {activePet.fun}</p>
+          <p>hunger:{activePet.food} fun: {activePet.fun}</p>
           <button onClick={() => feedPet(2)}>Feed</button>
           <button onClick={() => entertainPet(1)}>Pet</button>
         </nav>
