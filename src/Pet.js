@@ -133,7 +133,7 @@ export class Pet {
     //Returns the new appropriate age of the pet
     getNewAge(age) {
         let newAge
-        switch(currentAge) {
+        switch(age) {
             case 'egg':
                 newAge = 'baby';
                 break;

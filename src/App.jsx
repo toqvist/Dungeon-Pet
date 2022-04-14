@@ -15,25 +15,28 @@ function App() {
 
 
   const petNameRef = useRef();
+
   function createPet(type) {
 
     let newPet = new Pet(type, 'baby');
     setActivePet(newPet);
+    console.log(newPet);
   }
 
   function resetPet() {
     setActivePet(null);
     setAnimProps(getAnimProps("egg"));
   }
-  function growPet() {
-    const newAge = activePet.grow();
 
+  function growPet() {
+    const newAge = activePet.getNewAge(activePet.age);
+    console.log('newage: ' + newAge);
     setActivePet({
       ...activePet, // Copy the old fields
       age: newAge // But override this one
     });
 
-      updateSpriteAnimations();
+    updateSpriteAnimations(newAge);
     //PetElement won't update if I don't make a stage change with a setter
     // setUpdate(!update);
 
@@ -52,10 +55,10 @@ function App() {
     setUpdate(!update);
   }
 
-  function updateSpriteAnimations () {
+  function updateSpriteAnimations (age) {
     
     //Get the appropriate sprites for the current pet
-    const pet = petList.find(pet => pet.type === type);
+    const pet = petList.find(pet => pet.type === activePet.type);
     const newIdle = pet[age].idle
     const newHatching = pet[age].hatching
     const newRun = pet[age].run;
@@ -69,6 +72,14 @@ function App() {
       run : newRun,
       animProps : newAnimprops
     });
+    console.log({
+      ...activePet, // Copy the old fields
+      idle : newIdle,
+      hatching : newHatching,
+      run : newRun,
+      animProps : newAnimprops
+    })
+    setUpdate(!update);
 
   }
 
