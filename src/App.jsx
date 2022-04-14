@@ -13,7 +13,6 @@ function App() {
   const [activePet, setActivePet] = useState();
   const [update, setUpdate] = useState(false);
 
-  const [facing, setFacing] = useState("");
 
   const petNameRef = useRef();
   function createPet(type) {
@@ -28,10 +27,15 @@ function App() {
   }
   function growPet() {
     const newAge = activePet.grow();
-    activePet.age = newAge;
 
+    setActivePet({
+      ...activePet, // Copy the old fields
+      age: newAge // But override this one
+    });
+
+      updateSpriteAnimations();
     //PetElement won't update if I don't make a stage change with a setter
-    setUpdate(!update);
+    // setUpdate(!update);
 
   }
   function namePet(name) {
@@ -48,6 +52,26 @@ function App() {
     setUpdate(!update);
   }
 
+  function updateSpriteAnimations () {
+    
+    //Get the appropriate sprites for the current pet
+    const pet = petList.find(pet => pet.type === type);
+    const newIdle = pet[age].idle
+    const newHatching = pet[age].hatching
+    const newRun = pet[age].run;
+  
+    const newAnimprops = getAnimProps(age);
+
+    setActivePet({
+      ...activePet, // Copy the old fields
+      idle : newIdle,
+      hatching : newHatching,
+      run : newRun,
+      animProps : newAnimprops
+    });
+
+  }
+
   return (
     <div className="App" >
 
@@ -55,7 +79,7 @@ function App() {
         <nav className='top-bar'>
           <p>hunger:{activePet.hunger} fun: {activePet.fun}</p>
           <button onClick={() => feedPet(2)}>Feed</button>
-          <button onClick={() => entertainPet(2)}>Pet</button>
+          <button onClick={() => entertainPet(1)}>Pet</button>
         </nav>
         
       </> 
@@ -64,22 +88,8 @@ function App() {
         className='game-grid'>
 
         {activePet ?
-          <div>
-
-            {/* When pet is a component, the props updating do not cause the component to re-render */}
-            {/* <PetElement activePet={activePet} update={update} /> */}
-            <button onClick={() => flip()} className = 'button-no-style'>
-                <SpriteAnimator
-                    sprite={activePet.idle}
-                    shouldAnimate={activePet.animProps.shouldAnimate}
-                    frameCount={activePet.animProps.frameCount}
-                    fps={activePet.animProps.fps}
-                    width={activePet.animProps.width}
-                    height={activePet.animProps.height}
-                    className={`${facing ? 'facing-left' : ''}`}
-                    
-                />
-            </button>
+          <div>            
+            <PetElement activePet={activePet} update={update} />
           </div>
           : <div>
             <Eggs createPet={createPet} />

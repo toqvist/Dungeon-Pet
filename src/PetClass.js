@@ -1,3 +1,4 @@
+
 import { orky, shroomy, valiant, impy, zomby, getAnimProps, petList } from './pet_codex.js'
 
 export class Pet {
@@ -37,23 +38,23 @@ export class Pet {
 
         this.secondsAlive = 0
         //this.intervalID = setInterval(passTime, [1000]);
-        //Maybe bind a function in app to this?
-        //this.intervalID = setInterval(this.passTime.bind(this), 1000);
+        this.intervalID = setInterval(this.passTime.bind(this), 1000);
         
     }
-    
-    // stopTimer( ) {
-    //     clearInterval(this.intervalID);
-    // }
+    //Move timing functions out to app
+    stopTimer( ) {
+        clearInterval(this.intervalID);
+    }
 
-    // passTime() {
-    //     this.secondsAlive += 1;
-    //     if(this.secondsAlive% 10 === 0) {
-    //         this.decay();
-    //     }
-    // }
+    passTime() {
+        this.secondsAlive += 1;
+        if(this.secondsAlive% 10 === 0) {
+            this.decay();
+        }
+    }
     
-    decay() {
+    //Should return new value for fun
+    decayFun() {
         this.hunger -= this.hungerDecay;
         this.fun -= this.funDecay;
 
@@ -63,7 +64,17 @@ export class Pet {
             this.die();
         }
     }
-    //Return object with age and alive, deconstructor to update state
+    //Should return new value for hunger
+
+    decay() {
+        this.hunger -= this.hungerDecay;
+
+        console.log('hunger: ' +this.hunger)
+        if(this.hunger <= 0) {
+            this.die();
+        }
+    }
+
     die() {
         this.stopTimer();
         console.log('pet died')
@@ -128,32 +139,5 @@ export class Pet {
 
         return newAge
     }
-
-
-    //Returns the new appropriate age of the pet
-    getNewAge(age) {
-        let newAge
-        switch(currentAge) {
-            case 'egg':
-                newAge = 'baby';
-                break;
-            case 'baby':
-                newAge = 'teen';
-                break;
-            case 'teen':
-                newAge = 'adult';
-                break;
-            case 'adult':
-                newAge = 'dead';
-                break;
-            case 'dead':
-                newAge = 'dead';
-                break;
-        }
-        console.log(newAge)
-        return newAge
-    }
-
-
 
 }
