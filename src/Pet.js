@@ -12,7 +12,7 @@ export class Pet {
     //-Only use constructor
     //Change all state in App, encapsulated and accessed through object[]
 
-    constructor(type, age) {
+    constructor(type, age, passTime) {
         this.type = type;
         this.age = age;
         this.isAlive = true;
@@ -36,9 +36,7 @@ export class Pet {
         this.animProps = getAnimProps(this.age);
 
         this.secondsAlive = 0
-        //this.intervalID = setInterval(passTime, [1000]);
-        //Maybe bind a function in app to this?
-        //this.intervalID = setInterval(this.passTime.bind(this), 1000);
+        // this.intervalID = setInterval(passTime.bind(this), 5000);
     }
     
     // stopTimer( ) {
@@ -61,36 +59,6 @@ export class Pet {
         if(this.hunger <= 0 || this.fun <= 0) {
             this.die();
         }
-    }
-    //Return object with age and alive, deconstructor to update state
-    die() {
-        this.stopTimer();
-        console.log('pet died')
-        this.age = 'dead';
-        this.isAlive = false;
-    }
-
-    //Returns the new appropriate age of the pet
-    getNewAge(age) {
-        let newAge
-        switch(age) {
-            case 'egg':
-                newAge = 'baby';
-                break;
-            case 'baby':
-                newAge = 'teen';
-                break;
-            case 'teen':
-                newAge = 'adult';
-                break;
-            case 'adult':
-                newAge = 'dead';
-                break;
-            case 'dead':
-                newAge = 'dead';
-                break;
-        }
-        return newAge
     }
 
 }

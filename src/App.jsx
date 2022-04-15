@@ -11,7 +11,7 @@ import './app.css'
 function App() {
 
   const [activePet, setActivePet] = useState();
-
+  const [secondsPassed, setSecondsPassed] = useState(0);
   const petNameRef = useRef();
 
   function createPet(type) {
@@ -19,6 +19,8 @@ function App() {
     let newPet = new Pet(type, 'baby');
     setActivePet(newPet);
     console.log(newPet);
+    startTimer(1000)
+    
   }
 
   function resetPet() {
@@ -48,8 +50,8 @@ function App() {
     }
     console.log('newage: ' + newAge);
     const newPet = {
-      ...activePet, // Copy the old fields
-      age: newAge // But override this one
+      ...activePet,
+      age: newAge 
     };
 
     //newPet is passed this way because otherwise the following function would overwrite changes
@@ -92,6 +94,42 @@ function App() {
     });
   }
 
+  function petDie() {
+     const newPet = {
+      ...activePet,
+      age: 'dead',
+      isAlive: false
+     }
+      updateSpriteAnimations(newPet);
+  }
+
+  function startTimer(interval) {
+    const intervalID = setInterval(passTime, interval);
+  }
+
+  function passTime () {
+    console.log('passing time');
+    // console.log(secondsPassed)
+    const newTime = secondsPassed+1
+    
+    if(newTime % 5 == 0) {
+      decayHungerAndFun();
+    }
+    setSecondsPassed(newTime);
+    console.log(newTime)
+  }
+ 
+  function decayHungerAndFun() {
+    console.log('decaying hunger and fun');
+    const newHunger = activePet.food - 1;
+    const newFun = activePet.fun - 1;
+    setActivePet({
+      ...activePet,
+      food: newHunger,
+      fun: newFun
+    });
+  }
+
   //Should always be used to update pet, 
   function updateSpriteAnimations (newPet) {
     const age = newPet.age
@@ -117,8 +155,6 @@ function App() {
       run : newRun,
       animProps : newAnimprops
     })
-    
-
   }
 
   return (

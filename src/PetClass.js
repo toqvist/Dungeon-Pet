@@ -66,7 +66,7 @@ export class Pet {
     }
     //Should return new value for hunger
 
-    decay() {
+    decayHunger() {
         this.hunger -= this.hungerDecay;
 
         console.log('hunger: ' +this.hunger)
