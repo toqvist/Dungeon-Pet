@@ -27,6 +27,9 @@ export class Pet {
         this.maxFun = 10;
         this.funDecay = 1;
 
+        //How often food and fun will decrease
+        this.decayRate = 2;
+
         //Find pet in list from pet codex
         const pet = petList.find(pet => pet.type === type);
         this.idle = pet[age].idle

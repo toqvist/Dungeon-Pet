@@ -120,28 +120,25 @@ function App() {
     });
   }
 
-  function petDie() {
+  function petDie(unfortunatePet) {
      const newPet = {
-      ...activePet,
+      ...unfortunatePet,
       age: 'dead',
-      isAlive: false
+      isAlive: false,
+      food: 0,
+      fun: 0
      }
-      updateSpriteAnimations(newPet);
-  }
-
-  function startTimer(interval) {
-    const newIntervalID = setInterval(passTime, interval);
-    setIntervalId(newIntervalID);
+    console.log("pet died! :(");
+    updateSpriteAnimations(newPet);
   }
 
   function passTime () {
-    if (activePet) {
+    if (activePet && activePet.isAlive) {
       
       const newTime = activePet.secondsAlive + 1;
       setSecondsPassed(newTime);
 
-      
-      if(newTime % 5 == 0) {
+      if(newTime % activePet.decayRate == 0) {
         const newPet = {
           ...activePet,
           secondsAlive: newTime
@@ -152,29 +149,33 @@ function App() {
           ...activePet,
           secondsAlive: newTime
         });
-        
+
       }
-      
-      
-      console.log("time: " + newTime);
+      // console.log("time: " + newTime);
     }
     
   }
  
   function decayHungerAndFun(newPet) {
-    console.log('decaying hunger and fun');
-    console.log(activePet);
+
     const newHunger = activePet.food - activePet.foodDecay;
     const newFun = activePet.fun - activePet.funDecay;
     
+    if (newHunger <= 0) {
+      petDie(newPet);
+      return
+    }
+
+    if (newFun <= 0) {
+      petDie(newPet);
+      return
+    }
+
     setActivePet({
       ...newPet,
       food: newHunger,
       fun: newFun
     });
-    console.log(newHunger);
-    console.log(newFun);
-
   }
 
   //Should always be used to update pet, 
