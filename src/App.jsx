@@ -139,26 +139,36 @@ function App() {
       
       const newTime = activePet.secondsAlive + 1;
       setSecondsPassed(newTime);
+
+      
       if(newTime % 5 == 0) {
-        decayHungerAndFun();
+        const newPet = {
+          ...activePet,
+          secondsAlive: newTime
+        }
+        decayHungerAndFun(newPet);
+      } else {
+        setActivePet({
+          ...activePet,
+          secondsAlive: newTime
+        });
+        
       }
       
-      setActivePet({
-        ...activePet,
-        secondsAlive: newTime
-      });
+      
       console.log("time: " + newTime);
     }
     
   }
  
-  function decayHungerAndFun() {
+  function decayHungerAndFun(newPet) {
     console.log('decaying hunger and fun');
     console.log(activePet);
-    const newHunger = activePet.food - 1;
-    const newFun = activePet.fun - 1;
+    const newHunger = activePet.food - activePet.foodDecay;
+    const newFun = activePet.fun - activePet.funDecay;
+    
     setActivePet({
-      ...activePet,
+      ...newPet,
       food: newHunger,
       fun: newFun
     });
@@ -185,13 +195,6 @@ function App() {
       run : newRun,
       animProps : newAnimprops
     });
-    console.log({
-      ...activePet, // Copy the old fields
-      idle : newIdle,
-      hatching : newHatching,
-      run : newRun,
-      animProps : newAnimprops
-    })
   }
 
   return (
