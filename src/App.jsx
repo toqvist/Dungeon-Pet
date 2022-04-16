@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { SpriteAnimator } from 'react-sprite-animator'
 import { orky, shroomy, valiant, impy, zomby, getAnimProps, petList } from './pet_codex.js'
 import Eggs from './components/Eggs.jsx'
@@ -11,17 +11,43 @@ import './app.css'
 function App() {
 
   const [activePet, setActivePet] = useState();
+
   const [secondsPassed, setSecondsPassed] = useState(0);
+  
   const petNameRef = useRef();
 
   function createPet(type) {
 
     let newPet = new Pet(type, 'baby');
     setActivePet(newPet);
-    console.log(newPet);
-    startTimer(1000)
+    console.log(newPet);  
     
   }
+  useInterval(passTime, 1000);
+
+  
+
+  //https://overreacted.io/making-setinterval-declarative-with-react-hooks/
+  function useInterval(callback, delay) {
+    const savedCallback = useRef();
+  
+    // Remember the latest callback.
+    useEffect(() => {
+      savedCallback.current = callback;
+    }, [callback]);
+  
+    // Set up the interval.
+    useEffect(() => {
+      function tick() {
+        savedCallback.current();
+      }
+      if (delay !== null) {
+        let id = setInterval(tick, delay);
+        return () => clearInterval(id);
+      }
+    }, [delay]);
+  }
+
 
   function resetPet() {
     setActivePet(null);
@@ -104,23 +130,31 @@ function App() {
   }
 
   function startTimer(interval) {
-    const intervalID = setInterval(passTime, interval);
+    const newIntervalID = setInterval(passTime, interval);
+    setIntervalId(newIntervalID);
   }
 
   function passTime () {
-    console.log('passing time');
-    // console.log(secondsPassed)
-    const newTime = secondsPassed+1
-    
-    if(newTime % 5 == 0) {
-      decayHungerAndFun();
+    if (activePet) {
+      
+      const newTime = activePet.secondsAlive + 1;
+      setSecondsPassed(newTime);
+      if(newTime % 5 == 0) {
+        decayHungerAndFun();
+      }
+      
+      setActivePet({
+        ...activePet,
+        secondsAlive: newTime
+      });
+      console.log("time: " + newTime);
     }
-    setSecondsPassed(newTime);
-    console.log(newTime)
+    
   }
  
   function decayHungerAndFun() {
     console.log('decaying hunger and fun');
+    console.log(activePet);
     const newHunger = activePet.food - 1;
     const newFun = activePet.fun - 1;
     setActivePet({
@@ -128,6 +162,9 @@ function App() {
       food: newHunger,
       fun: newFun
     });
+    console.log(newHunger);
+    console.log(newFun);
+
   }
 
   //Should always be used to update pet, 
@@ -195,6 +232,7 @@ function App() {
         </nav>
         </> : <></>}
       </div>
+      <h1>{secondsPassed}</h1>
     </div>
   )
 }
