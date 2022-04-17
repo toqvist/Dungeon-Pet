@@ -184,8 +184,7 @@ export function getAnimProps(age) {
             height: 16,
             width: 16,
             frameCount: 1,
-            fps: 1,
-
+            fps: 6,
         }
     }
     if (age === 'baby') {

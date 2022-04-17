@@ -13,6 +13,7 @@ export class Pet {
     //Change all state in App, encapsulated and accessed through object[]
 
     constructor(type, age, passTime) {
+        
         this.type = type;
         this.age = age;
         this.isAlive = true;
@@ -28,40 +29,17 @@ export class Pet {
         this.funDecay = 1;
 
         //How often food and fun will decrease
-        this.decayRate = 2;
+        this.decayRate = 20;
 
-        //Find pet in list from pet codex
+        //Find pet in list from pet codex and get initial sprites
         const pet = petList.find(pet => pet.type === type);
         this.idle = pet[age].idle
         this.hatching = pet[age].hatching
         this.run = pet[age].run;
         
+        //AnimProp is an object with properties related to sprite animation speed and size
         this.animProps = getAnimProps(this.age);
 
         this.secondsAlive = 0
-        // this.intervalID = setInterval(passTime.bind(this), 5000);
     }
-    
-    // stopTimer( ) {
-    //     clearInterval(this.intervalID);
-    // }
-
-    // passTime() {
-    //     this.secondsAlive += 1;
-    //     if(this.secondsAlive% 10 === 0) {
-    //         this.decay();
-    //     }
-    // }
-    
-    decay() {
-        this.hunger -= this.hungerDecay;
-        this.fun -= this.funDecay;
-
-        console.log('hunger: ' +this.hunger)
-        console.log('fun: ' +this.fun)
-        if(this.hunger <= 0 || this.fun <= 0) {
-            this.die();
-        }
-    }
-
 }

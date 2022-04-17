@@ -4,14 +4,24 @@ import { SpriteAnimator } from 'react-sprite-animator'
 import { orky, shroomy, valiant, impy, zomby, getAnimProps, petList } from '../pet_codex.js'
 
 
-export default function Pet({ activePet }) {
+export default function Pet({ activePet, hatchEgg }) {
 
     const [facing, setFacing] = useState("");
     
+    function handleClick () {
+
+        if (activePet.age === "egg") {
+            hatchEgg();
+        } else {
+            flip();
+        }
+
+    }
+
     function flip() {
         console.log("flip")
         if (facing === "left") {
-            setFacing();
+            setFacing("");
         } else {
             setFacing("left");
         }
@@ -22,7 +32,7 @@ export default function Pet({ activePet }) {
         <>
         <p>{activePet.name ? activePet.name : 'this'} is a {activePet.age} {activePet.type}</p>
         
-            <button onClick={() => flip()} className = 'button-no-style'>
+            <button onClick={() => handleClick()} className = 'button-no-style'>
                 <SpriteAnimator
                     sprite={activePet.idle}
                     shouldAnimate={activePet.animProps.shouldAnimate}

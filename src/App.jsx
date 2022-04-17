@@ -18,14 +18,13 @@ function App() {
 
   function createPet(type) {
 
-    let newPet = new Pet(type, 'baby');
+    let newPet = new Pet(type, 'egg');
     setActivePet(newPet);
     console.log(newPet);  
     
   }
   useInterval(passTime, 1000);
 
-  
 
   //https://overreacted.io/making-setinterval-declarative-with-react-hooks/
   function useInterval(callback, delay) {
@@ -54,7 +53,10 @@ function App() {
     setAnimProps(getAnimProps("egg"));
   }
 
-  //returns pet with updated age
+  function hatchEgg() {
+    growPet();
+  }
+
   function growPet() {
     let newAge
     switch(activePet.age) {
@@ -133,7 +135,7 @@ function App() {
   }
 
   function passTime () {
-    if (activePet && activePet.isAlive) {
+    if (activePet && activePet.isAlive && activePet.age !== 'egg') {
       
       const newTime = activePet.secondsAlive + 1;
       setSecondsPassed(newTime);
@@ -187,15 +189,16 @@ function App() {
     const newHatching = pet[age].hatching
     const newRun = pet[age].run;
   
-    const newAnimprops = getAnimProps(age);
+    const newAnimProps = getAnimProps(age);
 
     setActivePet({
       ...newPet, // Copy the old fields
       idle : newIdle,
       hatching : newHatching,
       run : newRun,
-      animProps : newAnimprops
+      animProps : newAnimProps
     });
+    console.log(newAnimProps)
   }
 
   return (
@@ -215,7 +218,7 @@ function App() {
 
         {activePet ?
           <div>            
-            <PetElement activePet={activePet} />
+            <PetElement activePet={activePet} hatchEgg={hatchEgg} />
           </div>
           : <div>
             <Eggs createPet={createPet} />
