@@ -81,7 +81,6 @@ function App() {
       ...activePet,
       age: newAge 
     };
-
     //newPet is passed this way because otherwise the following function would overwrite changes
     updateSpriteAnimations(newPet);
 
@@ -97,7 +96,7 @@ function App() {
   function feedPet(foodValue) {
     const currentHunger = activePet.food
     let newFood
-    if (currentHunger > 10) {
+    if ((currentHunger+foodValue) > activePet.maxFood) {
       newFood = activePet.maxFood
     } else {
       newFood = currentHunger + foodValue
@@ -151,11 +150,9 @@ function App() {
           ...activePet,
           secondsAlive: newTime
         });
-
       }
       // console.log("time: " + newTime);
     }
-    
   }
  
   function decayHungerAndFun(newPet) {
@@ -207,8 +204,11 @@ function App() {
       {activePet ? <>
         <nav className='top-bar'>
           <p>hunger:{activePet.food} fun: {activePet.fun}</p>
-          <button onClick={() => feedPet(2)}>Feed</button>
-          <button onClick={() => entertainPet(1)}>Pet</button>
+          <button onClick={() => feedPet(1)}>🍏</button>
+          <button onClick={() => feedPet(1)}>🥥</button>
+          <button onClick={() => feedPet(2)}>🌮</button>
+          <button onClick={() => feedPet(3)}>🍔</button>
+          <button onClick={() => entertainPet(1)}>Pet❤️</button>
         </nav>
         
       </> 
