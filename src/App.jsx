@@ -7,14 +7,17 @@ import { Pet } from './Pet.js'
 import set from "./sprites/set.svg";
 import NeedBar from './components/NeedBar.jsx'
 import './app.css'
+import EnterName from './components/EnterName.jsx'
 
 function App() {
 
   const [activePet, setActivePet] = useState();
 
   const [secondsPassed, setSecondsPassed] = useState(0);
+  
 
   const petNameRef = useRef();
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   function createPet(type) {
 
@@ -25,6 +28,12 @@ function App() {
   }
   useInterval(passTime, 1000);
 
+  function closeModal() {
+    setModalIsOpen(false);
+  }
+  function openModal() {
+    setModalIsOpen(true);
+  }
 
   //https://overreacted.io/making-setinterval-declarative-with-react-hooks/
   function useInterval(callback, delay) {
@@ -54,7 +63,10 @@ function App() {
   }
 
   function hatchEgg() {
+    
     growPet();
+    setModalIsOpen(true);
+    
   }
 
   function growPet() {
@@ -229,17 +241,16 @@ function App() {
           <></>}
 
         {/* GAME  */}
+        
         <div style={{ backgroundImage: `url(${set})` }}
           className='game-grid'>
-
+          <EnterName modalIsOpen={modalIsOpen} namePet={namePet} closeModal={closeModal}></EnterName>
           {activePet ?
             <div className='center-in-grid'>
               <PetElement activePet={activePet} hatchEgg={hatchEgg} />
             </div>
             :
             <Eggs createPet={createPet} />
-
-
           }
         </div>
         {/* ADMIN PANEL */}
@@ -255,6 +266,7 @@ function App() {
             <p>Time alive: {activePet.timeAlive}</p>
             <p>{secondsPassed}</p>
             <p>{activePet.name ? activePet.name : 'this'} is a {activePet.age} {activePet.type}</p>
+            <button onClick={openModal}>Open Modal</button>
           </nav>
         </> : <></>}
       </div>
