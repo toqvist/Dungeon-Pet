@@ -5,7 +5,7 @@ import Eggs from './components/Eggs.jsx'
 import PetElement from './components/PetElement.jsx'
 import { Pet } from './Pet.js'
 import set from "./sprites/set.svg";
-import StatBar from './components/StatBar.jsx'
+import NeedBar from './components/NeedBar.jsx'
 
 import './app.css'
 
@@ -205,17 +205,26 @@ function App() {
       {/* GAME ACTIONS */}
       {activePet ? <>
         <nav className='top-bar'>
-          <p>hunger:{activePet.food} fun: {activePet.fun}</p>
-          <button onClick={() => feedPet(1)}>🍏</button>
-          <button onClick={() => feedPet(1)}>🥥</button>
-          <button onClick={() => feedPet(2)}>🌮</button>
-          <button onClick={() => feedPet(3)}>🍔</button>
-          <button onClick={() => entertainPet(1)}>Pet❤️</button>
-          <button onClick={() => entertainPet(2)}>🍬</button>
-          <button onClick={() => entertainPet(3)}>🍫</button>
-          <div className='stats'>
-            <StatBar stat={activePet.food} statMax={activePet.maxFood} />
+          <div className='needs'>
+            <NeedBar need={activePet.food} needMax={activePet.maxFood} icon={'🍏'} />
+            <NeedBar need={activePet.fun} needMax={activePet.maxFun} icon={'❤️'} />
           </div>
+          <p>hunger:{activePet.food} fun: {activePet.fun}</p>
+
+          <div className="needButtons">
+            <div className="foods">
+              <button onClick={() => feedPet(1)}>🍏</button>
+              <button onClick={() => feedPet(1)}>🥥</button>
+              <button onClick={() => feedPet(2)}>🌮</button>
+              <button onClick={() => feedPet(3)}>🍔</button>
+            </div>
+            <div className="funs">
+              <button onClick={() => entertainPet(1)}>Pet❤️</button>
+              <button onClick={() => entertainPet(2)}>🍬</button>
+              <button onClick={() => entertainPet(3)}>🍫</button>
+            </div>
+          </div>
+
         </nav>
 
       </>

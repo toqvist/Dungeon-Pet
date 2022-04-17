@@ -20,12 +20,38 @@
     /* background-image: url('/sprites/set.svg'); */
     width: 256px;
     height: 256px;
-    display: grid;
-    
+    display: grid;    
 }
 
-.stat-bar {
+.needs {
+    display: flex;
+    gap: 3px;
+}
 
+.need-bar {
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: aliceblue;
+    padding:2px;
+    display: flex;
+    gap:2px;
+    max-width: 100px;
+    max-height: 10px;
+}
+.notch {
+    background-color: black;
+    width: 1px;
+    padding: 3px;
+    border-radius: 1px;
+}
+.notch-transparent {
+    background-color: rgb(219, 218, 218);
+    width: 1px;
+    padding: 3px;
+    border-radius: 1px;
+}
+.need-icon {
+    font-size: 70%;
 }
 
 .admin-panel {
