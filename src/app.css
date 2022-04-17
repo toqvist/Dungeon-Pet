@@ -30,6 +30,16 @@
     grid-row: 4;
 }
 
+.left-of-center {
+    grid-column: 2;
+    grid-row: 4;
+}
+
+.right-of-center {
+    grid-column: 4;
+    grid-row: 4;
+}
+
 .need-buttons {
     display: flex;
     gap: 64px;
@@ -75,3 +85,8 @@
     border-radius: 5px;
     background-color: aliceblue;
 }
+
+.pet-name {
+    color: #a4c263
+}
+

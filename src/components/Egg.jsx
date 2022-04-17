@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { getAnimProps } from '../pet_codex'
 import { SpriteAnimator } from 'react-sprite-animator';
 
-export default function Egg({ type, sprite, createPet }) {
+export default function Egg({ type, sprite, createPet, position }) {
 
     const [animProps, setAnimProps] = useState(getAnimProps("egg"));
 
@@ -12,7 +12,7 @@ export default function Egg({ type, sprite, createPet }) {
 
     return (
         <button onClick={() => handleCreatePet(type)}
-        className='button-no-style'>
+        className={`button-no-style ${position}`}>
             <SpriteAnimator
                 sprite={sprite}
                 shouldAnimate={animProps.shouldAnimate}

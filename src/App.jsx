@@ -235,27 +235,27 @@ function App() {
           <div className='center-in-grid'>
             <PetElement activePet={activePet} hatchEgg={hatchEgg} />
           </div>
-          : <div className='center-in-grid'>
-            <Eggs createPet={createPet} />
-          </div>
+          :
+          <Eggs createPet={createPet} />
+
 
         }
       </div>
       {/* ADMIN PANEL */}
       {activePet ? <>
-          <nav className='admin-panel'>
-            <button onClick={() => resetPet()}>New pet</button>
-            <button onClick={() => growPet()}>Grow pet</button>
-            {activePet.name ? <></> :
-              <>
-                <input type="text" ref={petNameRef} />
-                <button onClick={() => namePet(petNameRef.current.value)}>Name</button>
-              </>}
-            <p>Time alive: {activePet.timeAlive}</p>
-            <p>{secondsPassed}</p>
-            <p>{activePet.name ? activePet.name : 'this'} is a {activePet.age} {activePet.type}</p>
-          </nav>
-        </> : <></>}
+        <nav className='admin-panel'>
+          <button onClick={() => resetPet()}>New pet</button>
+          <button onClick={() => growPet()}>Grow pet</button>
+          {activePet.name ? <></> :
+            <>
+              <input type="text" ref={petNameRef} />
+              <button onClick={() => namePet(petNameRef.current.value)}>Name</button>
+            </>}
+          <p>Time alive: {activePet.timeAlive}</p>
+          <p>{secondsPassed}</p>
+          <p>{activePet.name ? activePet.name : 'this'} is a {activePet.age} {activePet.type}</p>
+        </nav>
+      </> : <></>}
 
     </div>
   )

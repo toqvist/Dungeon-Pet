@@ -65,7 +65,17 @@ export default function Eggs({createPet}) {
     return (
         <>
             {newEggs.map((egg, index) => {
-                return <Egg key={index} type={egg.name} sprite={egg.sprite} createPet={createPet} />
+
+                if(index == 0) {
+                    return <Egg position='left-of-center' key={index} type={egg.name} sprite={egg.sprite} createPet={createPet} />
+                }
+                if(index == 1) {
+                    return <Egg position='center-in-grid' key={index} type={egg.name} sprite={egg.sprite} createPet={createPet} />
+                }
+                if(index == 2) {
+                    return <Egg position='right-of-center' key={index} type={egg.name} sprite={egg.sprite} createPet={createPet} />
+                }
+                
             })}
         </>
     )
