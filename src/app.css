@@ -1,3 +1,39 @@
+.App {
+    /* background-color: #E4FA69;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 1000'%3E%3Cg %3E%3Ccircle fill='%23E4FA69' cx='50' cy='0' r='50'/%3E%3Cg fill='%23dbf468' %3E%3Ccircle cx='0' cy='50' r='50'/%3E%3Ccircle cx='100' cy='50' r='50'/%3E%3C/g%3E%3Ccircle fill='%23d3ee66' cx='50' cy='100' r='50'/%3E%3Cg fill='%23cae865' %3E%3Ccircle cx='0' cy='150' r='50'/%3E%3Ccircle cx='100' cy='150' r='50'/%3E%3C/g%3E%3Ccircle fill='%23c2e264' cx='50' cy='200' r='50'/%3E%3Cg fill='%23badc62' %3E%3Ccircle cx='0' cy='250' r='50'/%3E%3Ccircle cx='100' cy='250' r='50'/%3E%3C/g%3E%3Ccircle fill='%23b2d561' cx='50' cy='300' r='50'/%3E%3Cg fill='%23aacf5f' %3E%3Ccircle cx='0' cy='350' r='50'/%3E%3Ccircle cx='100' cy='350' r='50'/%3E%3C/g%3E%3Ccircle fill='%23a2c95e' cx='50' cy='400' r='50'/%3E%3Cg fill='%239bc35c' %3E%3Ccircle cx='0' cy='450' r='50'/%3E%3Ccircle cx='100' cy='450' r='50'/%3E%3C/g%3E%3Ccircle fill='%2394bd5b' cx='50' cy='500' r='50'/%3E%3Cg fill='%238cb759' %3E%3Ccircle cx='0' cy='550' r='50'/%3E%3Ccircle cx='100' cy='550' r='50'/%3E%3C/g%3E%3Ccircle fill='%2386b158' cx='50' cy='600' r='50'/%3E%3Cg fill='%237faa56' %3E%3Ccircle cx='0' cy='650' r='50'/%3E%3Ccircle cx='100' cy='650' r='50'/%3E%3C/g%3E%3Ccircle fill='%2378a454' cx='50' cy='700' r='50'/%3E%3Cg fill='%23729e52' %3E%3Ccircle cx='0' cy='750' r='50'/%3E%3Ccircle cx='100' cy='750' r='50'/%3E%3C/g%3E%3Ccircle fill='%236c9850' cx='50' cy='800' r='50'/%3E%3Cg fill='%2366924e' %3E%3Ccircle cx='0' cy='850' r='50'/%3E%3Ccircle cx='100' cy='850' r='50'/%3E%3C/g%3E%3Ccircle fill='%23608c4c' cx='50' cy='900' r='50'/%3E%3Cg fill='%235a864a' %3E%3Ccircle cx='0' cy='950' r='50'/%3E%3Ccircle cx='100' cy='950' r='50'/%3E%3C/g%3E%3Ccircle fill='%23558048' cx='50' cy='1000' r='50'/%3E%3C/g%3E%3C/svg%3E"); */
+  
+    background-color: #629513;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 1000'%3E%3Cg %3E%3Ccircle fill='%23629513' cx='50' cy='0' r='50'/%3E%3Cg fill='%235c8f14' %3E%3Ccircle cx='0' cy='50' r='50'/%3E%3Ccircle cx='100' cy='50' r='50'/%3E%3C/g%3E%3Ccircle fill='%23558915' cx='50' cy='100' r='50'/%3E%3Cg fill='%234f8316' %3E%3Ccircle cx='0' cy='150' r='50'/%3E%3Ccircle cx='100' cy='150' r='50'/%3E%3C/g%3E%3Ccircle fill='%23497e17' cx='50' cy='200' r='50'/%3E%3Cg fill='%23447817' %3E%3Ccircle cx='0' cy='250' r='50'/%3E%3Ccircle cx='100' cy='250' r='50'/%3E%3C/g%3E%3Ccircle fill='%233e7217' cx='50' cy='300' r='50'/%3E%3Cg fill='%23396c17' %3E%3Ccircle cx='0' cy='350' r='50'/%3E%3Ccircle cx='100' cy='350' r='50'/%3E%3C/g%3E%3Ccircle fill='%23346617' cx='50' cy='400' r='50'/%3E%3Cg fill='%232f6117' %3E%3Ccircle cx='0' cy='450' r='50'/%3E%3Ccircle cx='100' cy='450' r='50'/%3E%3C/g%3E%3Ccircle fill='%232a5b16' cx='50' cy='500' r='50'/%3E%3Cg fill='%23255515' %3E%3Ccircle cx='0' cy='550' r='50'/%3E%3Ccircle cx='100' cy='550' r='50'/%3E%3C/g%3E%3Ccircle fill='%23215015' cx='50' cy='600' r='50'/%3E%3Cg fill='%231c4a14' %3E%3Ccircle cx='0' cy='650' r='50'/%3E%3Ccircle cx='100' cy='650' r='50'/%3E%3C/g%3E%3Ccircle fill='%23184513' cx='50' cy='700' r='50'/%3E%3Cg fill='%23153f11' %3E%3Ccircle cx='0' cy='750' r='50'/%3E%3Ccircle cx='100' cy='750' r='50'/%3E%3C/g%3E%3Ccircle fill='%23113a10' cx='50' cy='800' r='50'/%3E%3Cg fill='%230e350f' %3E%3Ccircle cx='0' cy='850' r='50'/%3E%3Ccircle cx='100' cy='850' r='50'/%3E%3C/g%3E%3Ccircle fill='%230b2f0d' cx='50' cy='900' r='50'/%3E%3Cg fill='%23092a0a' %3E%3Ccircle cx='0' cy='950' r='50'/%3E%3Ccircle cx='100' cy='950' r='50'/%3E%3C/g%3E%3Ccircle fill='%23072507' cx='50' cy='1000' r='50'/%3E%3C/g%3E%3C/svg%3E");
+    background-attachment: fixed;
+    background-size: contain;
+
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+body {
+    margin:0;
+}
+.site-wrapper {
+    display:grid;
+    grid-template-columns: 1fr min(300px, 100%) 1fr;
+}
+
+.game-wrapper {
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+    
+    align-items: center;
+    /* justify-content: center; */
+
+    max-width: 256px;
+    padding: 15px 20px;
+    background-color: rgb(17, 17, 17);
+    border-radius: 10px;
+}
+
 .egg:hover {
     transform: scale3d(1.1, 1.1, 1.1);
     transition: transform 0.2s;
@@ -42,7 +78,8 @@
 
 .need-buttons {
     display: flex;
-    gap: 64px;
+    gap: 40px;
+    justify-content: space-around;
 }
 
 .needs {

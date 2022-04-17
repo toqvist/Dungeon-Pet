@@ -198,64 +198,66 @@ function App() {
   }
 
   return (
-    <div className="App" >
+    <div className="App site-wrapper" >
+      <div className="game-wrapper">
 
-      {/* GAME ACTIONS */}
-      {activePet ? <>
-        <nav className='top-bar'>
-          <div className='needs'>
-            <NeedBar need={activePet.food} needMax={activePet.maxFood} icon={'🍏'} />
-            <NeedBar need={activePet.fun} needMax={activePet.maxFun} icon={'❤️'} />
-          </div>
-          <div className="need-buttons">
-            <div className="foods">
-              <button onClick={() => feedPet(1)}>🍏</button>
-              <button onClick={() => feedPet(1)}>🥥</button>
-              <button onClick={() => feedPet(2)}>🌮</button>
-              <button onClick={() => feedPet(3)}>🍔</button>
+        {/* GAME ACTIONS */}
+        {activePet ? <>
+          <nav className='top-bar'>
+            <div className='needs'>
+              <NeedBar need={activePet.food} needMax={activePet.maxFood} icon={'🍏'} />
+              <NeedBar need={activePet.fun} needMax={activePet.maxFun} icon={'❤️'} />
             </div>
-            <div className="funs">
-              <button onClick={() => entertainPet(1)}>Pet❤️</button>
-              <button onClick={() => entertainPet(2)}>🍬</button>
-              <button onClick={() => entertainPet(3)}>🍫</button>
+            <div className="need-buttons">
+              <div className="foods">
+                <button onClick={() => feedPet(1)}>🍏</button>
+                <button onClick={() => feedPet(1)}>🥥</button>
+                <button onClick={() => feedPet(2)}>🌮</button>
+                <button onClick={() => feedPet(3)}>🍔</button>
+              </div>
+              <div className="funs">
+                <button onClick={() => entertainPet(1)}>Pet❤️</button>
+                <button onClick={() => entertainPet(2)}>🍬</button>
+                <button onClick={() => entertainPet(3)}>🍫</button>
+              </div>
             </div>
-          </div>
 
-        </nav>
+          </nav>
 
-      </>
-        :
-        <></>}
-
-      {/* GAME  */}
-      <div style={{ backgroundImage: `url(${set})` }}
-        className='game-grid'>
-
-        {activePet ?
-          <div className='center-in-grid'>
-            <PetElement activePet={activePet} hatchEgg={hatchEgg} />
-          </div>
+        </>
           :
-          <Eggs createPet={createPet} />
+          <></>}
+
+        {/* GAME  */}
+        <div style={{ backgroundImage: `url(${set})` }}
+          className='game-grid'>
+
+          {activePet ?
+            <div className='center-in-grid'>
+              <PetElement activePet={activePet} hatchEgg={hatchEgg} />
+            </div>
+            :
+            <Eggs createPet={createPet} />
 
 
-        }
+          }
+        </div>
+        {/* ADMIN PANEL */}
+        {activePet ? <>
+          <nav className='admin-panel'>
+            <button onClick={() => resetPet()}>New pet</button>
+            <button onClick={() => growPet()}>Grow pet</button>
+            {activePet.name ? <></> :
+              <>
+                <input type="text" ref={petNameRef} />
+                <button onClick={() => namePet(petNameRef.current.value)}>Name</button>
+              </>}
+            <p>Time alive: {activePet.timeAlive}</p>
+            <p>{secondsPassed}</p>
+            <p>{activePet.name ? activePet.name : 'this'} is a {activePet.age} {activePet.type}</p>
+          </nav>
+        </> : <></>}
       </div>
-      {/* ADMIN PANEL */}
-      {activePet ? <>
-        <nav className='admin-panel'>
-          <button onClick={() => resetPet()}>New pet</button>
-          <button onClick={() => growPet()}>Grow pet</button>
-          {activePet.name ? <></> :
-            <>
-              <input type="text" ref={petNameRef} />
-              <button onClick={() => namePet(petNameRef.current.value)}>Name</button>
-            </>}
-          <p>Time alive: {activePet.timeAlive}</p>
-          <p>{secondsPassed}</p>
-          <p>{activePet.name ? activePet.name : 'this'} is a {activePet.age} {activePet.type}</p>
-        </nav>
-      </> : <></>}
 
     </div>
   )
