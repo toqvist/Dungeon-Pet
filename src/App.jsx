@@ -232,17 +232,17 @@ function App() {
         className='game-grid'>
 
         {activePet ?
-          <div>
+          <div className='center-in-grid'>
             <PetElement activePet={activePet} hatchEgg={hatchEgg} />
           </div>
-          : <div>
+          : <div className='center-in-grid'>
             <Eggs createPet={createPet} />
           </div>
 
         }
-
-        {/* ADMIN PANEL */}
-        {activePet ? <>
+      </div>
+      {/* ADMIN PANEL */}
+      {activePet ? <>
           <nav className='admin-panel'>
             <button onClick={() => resetPet()}>New pet</button>
             <button onClick={() => growPet()}>Grow pet</button>
@@ -256,7 +256,6 @@ function App() {
             <p>{activePet.name ? activePet.name : 'this'} is a {activePet.age} {activePet.type}</p>
           </nav>
         </> : <></>}
-      </div>
 
     </div>
   )
