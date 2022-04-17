@@ -5,9 +5,10 @@ export default function needBar({ need, needMax, icon }) {
 
     const [notches, setNotches] = useState([]);
 
+
     useEffect(() => {
         fillBar();
-    }, [])
+    }, [need])
 
     function fillBar() {
         let newNotches = []

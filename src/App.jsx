@@ -6,7 +6,6 @@ import PetElement from './components/PetElement.jsx'
 import { Pet } from './Pet.js'
 import set from "./sprites/set.svg";
 import NeedBar from './components/NeedBar.jsx'
-
 import './app.css'
 
 function App() {
@@ -157,7 +156,6 @@ function App() {
   }
 
   function decayHungerAndFun(newPet) {
-
     const newHunger = activePet.food - activePet.foodDecay;
     const newFun = activePet.fun - activePet.funDecay;
 
@@ -209,9 +207,7 @@ function App() {
             <NeedBar need={activePet.food} needMax={activePet.maxFood} icon={'🍏'} />
             <NeedBar need={activePet.fun} needMax={activePet.maxFun} icon={'❤️'} />
           </div>
-          <p>hunger:{activePet.food} fun: {activePet.fun}</p>
-
-          <div className="needButtons">
+          <div className="need-buttons">
             <div className="foods">
               <button onClick={() => feedPet(1)}>🍏</button>
               <button onClick={() => feedPet(1)}>🥥</button>
