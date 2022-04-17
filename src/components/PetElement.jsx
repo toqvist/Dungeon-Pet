@@ -30,7 +30,6 @@ export default function Pet({ activePet, hatchEgg }) {
 
     return (
         <>
-        <p>{activePet.name ? activePet.name : 'this'} is a {activePet.age} {activePet.type}</p>
         
             <button onClick={() => handleClick()} className = 'button-no-style'>
                 <SpriteAnimator

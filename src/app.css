@@ -21,4 +21,16 @@
     width: 256px;
     height: 256px;
     display: grid;
+    
+}
+
+.stat-bar {
+
+}
+
+.admin-panel {
+    margin-top: 230px;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: aliceblue;
 }
