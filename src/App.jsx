@@ -14,10 +14,12 @@ function App() {
   const [activePet, setActivePet] = useState();
 
   const [secondsPassed, setSecondsPassed] = useState(0);
-  
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [prompt, setPrompt] = useState('Choose an egg!');
 
   const petNameRef = useRef();
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+
 
   function createPet(type) {
 
@@ -63,10 +65,10 @@ function App() {
   }
 
   function hatchEgg() {
-    
+
     growPet();
     setModalIsOpen(true);
-    
+
   }
 
   function growPet() {
@@ -214,13 +216,14 @@ function App() {
       <div className="game-wrapper">
 
         {/* GAME ACTIONS */}
-        {activePet ? <>
-          <nav className='top-bar'>
-            <div className='needs'>
+        <nav className={`top-bar `}>
+          {activePet ? <>
+
+            <div className={`needs ${activePet.age != 'egg' ? 'visible' : '' }`}>
               <NeedBar need={activePet.food} needMax={activePet.maxFood} icon={'🍏'} />
               <NeedBar need={activePet.fun} needMax={activePet.maxFun} icon={'❤️'} />
             </div>
-            <div className="need-buttons">
+            <div className={`need-buttons ${activePet.age != 'egg' ? 'visible' : '' }`}>
               <div className="foods">
                 <button onClick={() => feedPet(1)}>🍏</button>
                 <button onClick={() => feedPet(1)}>🥥</button>
@@ -234,14 +237,13 @@ function App() {
               </div>
             </div>
 
-          </nav>
-
-        </>
-          :
-          <></>}
+          </>
+            :
+            <></>}
+        </nav>
 
         {/* GAME  */}
-        
+
         <div style={{ backgroundImage: `url(${set})` }}
           className='game-grid'>
           <EnterName modalIsOpen={modalIsOpen} namePet={namePet} closeModal={closeModal}></EnterName>
@@ -249,9 +251,11 @@ function App() {
             <div className='center-in-grid'>
               <PetElement activePet={activePet} hatchEgg={hatchEgg} />
             </div>
+
             :
             <Eggs createPet={createPet} />
           }
+          {prompt ? <p className='prompt'>{prompt}</p> : <></>}
         </div>
         {/* ADMIN PANEL */}
         {activePet ? <>
@@ -260,13 +264,12 @@ function App() {
             <button onClick={() => growPet()}>Grow pet</button>
             {activePet.name ? <></> :
               <>
-                <input type="text" ref={petNameRef} />
                 <button onClick={() => namePet(petNameRef.current.value)}>Name</button>
               </>}
             <p>Time alive: {activePet.timeAlive}</p>
             <p>{secondsPassed}</p>
             <p>{activePet.name ? activePet.name : 'this'} is a {activePet.age} {activePet.type}</p>
-            <button onClick={openModal}>Open Modal</button>
+            <button onClick={openModal}>Name pet</button>
           </nav>
         </> : <></>}
       </div>

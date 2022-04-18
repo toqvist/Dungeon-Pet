@@ -80,11 +80,25 @@ body {
     display: flex;
     gap: 40px;
     justify-content: space-around;
+    opacity:0;
 }
+
+.top-bar {
+    width: 256px;
+    height : 40px;
+}
+
+.needs.visible,
+.need-buttons.visible {
+    opacity: 1;
+    transition: opacity 3s ease-in;
+}
+
 
 .needs {
     display: flex;
     gap: 3px;
+    opacity:0;
 }
 
 .need-bar {
@@ -140,4 +154,15 @@ body {
     background-color: #a4c263;
     border: #629513 1px solid;
     border-radius: 5px;
+}
+.enter-name:selection{
+    border: yellow 1px solid;
+}
+
+.prompt {
+    color: #629513;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
