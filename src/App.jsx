@@ -90,12 +90,16 @@ function App() {
 
   }
 
-  function hatchEgg() {
-
-    growPet();
+  function hatchEgg(egg) {
+    console.log('hatching')
     setModalIsOpen(true);
     setPrompt('')
-
+    const newPet = {
+      ...egg,
+      age: nextAge(egg.age)
+    }
+    updateSpriteAnimations(newPet);
+    
   }
 
   function growPet() {
@@ -198,6 +202,7 @@ function App() {
     if (activePet && activePet.isAlive) {
       const newTime = activePet.secondsAlive + 1;
       setSecondsPassed(newTime);
+      
       let newPet = {
         ...activePet,
         secondsAlive: newTime
@@ -216,11 +221,12 @@ function App() {
       }
 
       updatePet(newPet, grow, decayFood, decayFun);
+      
       //Prompt
       if (promptFade) {
-
         setPromptFade(promptFade - 1)
       }
+
       if (promptFade <= 0) {
         setPrompt('')
 
@@ -231,15 +237,26 @@ function App() {
   //Used to update several pet variables at once, from passTime usually
   function updatePet(petToUpdate, grow, decayFood, decayFun) {
     let newPet = { ...petToUpdate }
-    console.log(grow)
     
     if (grow ) {
-      console.log('aging : ' +  nextAge(newPet.age))
+
+      let newAge = nextAge(newPet.age);
+
+      if (newAge === 'baby') {
+        hatchEgg(newPet)
+        return
+      }
+      
+      if (newAge === 'dead') {
+        petDie(newPet)
+        return
+      }
+      
       newPet = {
         ...newPet,
-        age: nextAge(newPet.age)
+        age: newAge
       }
-    }
+    } 
 
     if (decayFood) {
       newPet = {
