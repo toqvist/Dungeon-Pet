@@ -14,7 +14,7 @@ export default function EnterName({ namePet, modalIsOpen, closeModal }) {
 
         if (e.key === 'Enter') {
             
-            if(petNameRef.current.value = '') {
+            if(petNameRef.current.value === '') {
                 namePet('default')
             } else {
                 namePet(petNameRef.current.value);

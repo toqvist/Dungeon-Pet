@@ -60,16 +60,18 @@ function App() {
 
 
   function resetPet() {
+    setPrompt('')
     setActivePet(null);
     setAnimProps(getAnimProps("egg"));
     setModalIsOpen(false);
+    
   }
 
   function hatchEgg() {
 
     growPet();
     setModalIsOpen(true);
-    setPrompt("")
+    setPrompt('')
 
   }
 
@@ -103,13 +105,12 @@ function App() {
   }
 
   //Name pet entered name or give it a default name
-  function namePet(name) {
-    let newName = ''
-    if (newName === '') {
+  function namePet(newName) {
+
+    if (newName === 'default') {
       newName = activePet.type
-    } else {
-      newName = name
     }
+    
     setActivePet({
       ...activePet,
       name: newName
@@ -155,6 +156,7 @@ function App() {
     }
     setPrompt(`${activePet.name ? activePet.name : 'pet'}` + " has died :(")
     updateSpriteAnimations(newPet);
+    setModalIsOpen(false);
   }
 
   function passTime() {

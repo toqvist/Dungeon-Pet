@@ -19,7 +19,7 @@ export default function Pet({ activePet, hatchEgg }) {
     }
 
     function flip() {
-        console.log("flip")
+        
         if (facing === "left") {
             setFacing("");
         } else {
