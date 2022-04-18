@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { SpriteAnimator } from 'react-sprite-animator'
 import { orky, shroomy, valiant, impy, zomby, getAnimProps, petList } from './pet_codex.js'
 import Eggs from './components/Eggs.jsx'
@@ -17,7 +17,18 @@ function App() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [prompt, setPrompt] = useState('');
 
-  const petNameRef = useRef();
+  const LOCAL_STORAGE_KEY = 'DungeonPets.Pet';
+
+  useEffect (() => {
+    const storedPet = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+    if(storedPet) {
+      setActivePet(storedPet)
+    }
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(activePet))
+  }, [activePet])  
 
 
 
@@ -110,7 +121,7 @@ function App() {
     if (newName === 'default') {
       newName = activePet.type
     }
-    
+
     setActivePet({
       ...activePet,
       name: newName
