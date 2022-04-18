@@ -182,8 +182,8 @@ function App() {
       food: 0,
       fun: 0
     }
-    setPrompt(`${activePet.name ? activePet.name : 'pet'}` + " has died :(")
     updateSpriteAnimations(newPet);
+    setPrompt(`${activePet.name ? activePet.name : 'pet'}` + " has died :(")
     setModalIsOpen(false);
   }
 
