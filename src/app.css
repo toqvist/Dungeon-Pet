@@ -33,6 +33,7 @@ button, input {
 .site-wrapper {
     display:grid;
     grid-template-columns: 1fr min(300px, 100%) 1fr;
+    grid-template-rows: 100vh;
 }
 
 .game-wrapper {
@@ -40,14 +41,26 @@ button, input {
     display: flex;
     flex-direction: column;
     
+    
     align-items: center;
     /* justify-content: center; */
 
     max-width: 256px;
-    padding: 15px 20px;
-    background-color: rgb(17, 17, 17);
-    border-radius: 10px;
+    max-height: 46.8vh;
+    padding: 15px 0px;
+    background-color: rgb(18,18, 18);
+    
+    transform: scale(2) translateY(25%);
 }
+
+@media screen and (min-width: 768px) {
+    .game-wrapper {
+        transform: scale(3) translateY(25%);
+        max-height: 33vh;
+    }
+}
+    
+
 
 .egg:hover {
     transform: scale3d(1.1, 1.1, 1.1);
