@@ -2,16 +2,6 @@ import { orky, shroomy, valiant, impy, zomby, getAnimProps, petList } from './pe
 
 export class Pet {
 
-    //Possible solutions
-    //- Make each method return this object, so that setNewPet(activePet.method) updates the state
-    //- Each method returns the new value of the property, then setActivePet(newValue)
-    //
-    //- Should instead be a class component, these can have state
-    //Constructor should contain props
-    //- Component should instead be a context
-    //-Only use constructor
-    //Change all state in App, encapsulated and accessed through object[]
-
     constructor(type, age, passTime) {
         
         this.type = type;
@@ -30,6 +20,7 @@ export class Pet {
 
         //How often food and fun will decrease
         this.decayRate = 20;
+        this.growthRate = 60
 
         //Find pet in list from pet codex and get initial sprites
         const pet = petList.find(pet => pet.type === type);

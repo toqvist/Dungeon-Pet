@@ -24,19 +24,19 @@ function App() {
     const storedPet = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
     if (storedPet) {
       setActivePet(storedPet)
-      
-      if(storedPet.isAlive) {
+
+      if (storedPet.isAlive) {
         setPrompt("Welcome back!")
         setPromptFade(3)
       } else {
         setPrompt(`${storedPet.name ? storedPet.name : 'pet'}` + " has died :(")
-      }    
+      }
     }
 
   }, [])
 
   useEffect(() => {
-    if(activePet) {
+    if (activePet) {
       localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(activePet))
     } else {
       localStorage.clear();
@@ -99,8 +99,19 @@ function App() {
   }
 
   function growPet() {
+  
+    const newPet = {
+      ...activePet,
+      age: nextAge(activePet.age),
+    };
+    //newPet is passed this way because otherwise the following function would overwrite changes
+    updateSpriteAnimations(newPet);
+
+  }
+
+  function nextAge(age) {
     let newAge
-    switch (activePet.age) {
+    switch (age) {
       case 'egg':
         newAge = 'baby';
         break;
@@ -117,13 +128,7 @@ function App() {
         newAge = 'dead';
         break;
     }
-    console.log('newage: ' + newAge);
-    const newPet = {
-      ...activePet,
-      age: newAge
-    };
-    //newPet is passed this way because otherwise the following function would overwrite changes
-    updateSpriteAnimations(newPet);
+    return newAge
 
   }
 
@@ -183,56 +188,81 @@ function App() {
   }
 
   function passTime() {
-    if (activePet && activePet.isAlive && activePet.age !== 'egg') {
 
+    let grow = false
+    let decayFood = false
+    let decayFun = false
+
+
+    //There needs to be a pet that is alive
+    if (activePet && activePet.isAlive) {
       const newTime = activePet.secondsAlive + 1;
       setSecondsPassed(newTime);
-
-      if (newTime % activePet.decayRate == 0) {
-        const newPet = {
-          ...activePet,
-          secondsAlive: newTime
-        }
-        decayHungerAndFun(newPet);
-      } else {
-        setActivePet({
-          ...activePet,
-          secondsAlive: newTime
-        });
+      let newPet = {
+        ...activePet,
+        secondsAlive: newTime
       }
-      // console.log("time: " + newTime);
-    }
-    
-    if (promptFade) {
-      
-      setPromptFade(promptFade - 1)
-    }
-    if (promptFade <= 0) {
-      setPrompt('')
-      
-      
+
+      //Food and fun should not decay if pet is still an egg
+      if (activePet.age !== 'egg' && newTime % activePet.decayRate == 0) {
+
+        decayFood = true
+        decayFun = true
+
+      }
+
+      if (newTime % activePet.growthRate === 0) {
+        grow = true
+      }
+
+      updatePet(newPet, grow, decayFood, decayFun);
+      //Prompt
+      if (promptFade) {
+
+        setPromptFade(promptFade - 1)
+      }
+      if (promptFade <= 0) {
+        setPrompt('')
+
+      }
     }
   }
 
-  function decayHungerAndFun(newPet) {
-    const newHunger = activePet.food - activePet.foodDecay;
-    const newFun = activePet.fun - activePet.funDecay;
-
-    if (newHunger <= 0) {
-      petDie(newPet);
-      return
+  //Used to update several pet variables at once, from passTime usually
+  function updatePet(petToUpdate, grow, decayFood, decayFun) {
+    let newPet = { ...petToUpdate }
+    console.log(grow)
+    
+    if (grow ) {
+      console.log('aging : ' +  nextAge(newPet.age))
+      newPet = {
+        ...newPet,
+        age: nextAge(newPet.age)
+      }
     }
 
-    if (newFun <= 0) {
-      petDie(newPet);
-      return
+    if (decayFood) {
+      newPet = {
+        ...newPet,
+        food: newPet.food - newPet.foodDecay
+      }
     }
 
-    setActivePet({
-      ...newPet,
-      food: newHunger,
-      fun: newFun
-    });
+    if (decayFun) {
+      newPet = {
+        ...newPet,
+        fun: newPet.fun - newPet.funDecay
+      }
+    }
+
+    if (newPet.food <= 0 || newPet.fun <= 0) {
+      petDie(newPet);
+      return
+    } else {
+      updateSpriteAnimations(newPet);
+    }
+
+
   }
 
   //Should always be used to update pet, 
@@ -291,7 +321,7 @@ function App() {
 
         <div style={{ backgroundImage: `url(${set})` }}
           className='game-grid'>
-          
+
           {activePet ?
             <div className='center-in-grid'>
               <PetElement activePet={activePet} hatchEgg={hatchEgg} />
