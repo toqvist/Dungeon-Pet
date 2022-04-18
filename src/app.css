@@ -90,8 +90,7 @@ button, input {
 
 .need-buttons {
     display: flex;
-    gap: 40px;
-    justify-content: space-around;
+    justify-content: space-between;
     opacity:0;
 }
 
@@ -109,8 +108,8 @@ button, input {
 
 .needs {
     display: flex;
-    gap: 3px;
     opacity:0;
+    justify-content: space-between;
 }
 
 .need-bar {

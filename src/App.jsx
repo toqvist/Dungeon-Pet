@@ -251,7 +251,7 @@ function App() {
         petDie(newPet)
         return
       }
-      
+
       newPet = {
         ...newPet,
         age: newAge
@@ -341,7 +341,7 @@ function App() {
 
           {activePet ?
             <div className='center-in-grid'>
-              <PetElement activePet={activePet} hatchEgg={hatchEgg} />
+              <PetElement activePet={activePet} hatchEgg={() => hatchEgg(activePet)} />
             </div>
 
             :
