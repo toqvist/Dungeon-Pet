@@ -7,8 +7,8 @@ import { orky, shroomy, valiant, impy, zomby, getAnimProps, petList } from '../p
 export default function Pet({ activePet, hatchEgg }) {
 
     const [facing, setFacing] = useState("");
-    
-    function handleClick () {
+
+    function handleClick() {
 
         if (activePet.age === "egg") {
             hatchEgg();
@@ -25,13 +25,12 @@ export default function Pet({ activePet, hatchEgg }) {
         } else {
             setFacing("left");
         }
-        
+
     }
 
     return (
         <>
-        
-            <button onClick={() => handleClick()} className = 'button-no-style'>
+            <button onClick={() => handleClick()} className='button-no-style'>
                 <SpriteAnimator
                     sprite={activePet.idle}
                     shouldAnimate={activePet.animProps.shouldAnimate}
@@ -40,10 +39,9 @@ export default function Pet({ activePet, hatchEgg }) {
                     width={activePet.animProps.width}
                     height={activePet.animProps.height}
                     className={`${facing ? 'facing-left' : ''}`}
-                    
+
                 />
             </button>
-        
         </>
     )
 }

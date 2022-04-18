@@ -11,8 +11,14 @@ export default function EnterName({ namePet, modalIsOpen, closeModal }) {
 
     function handleKeyPress (e) {
         
-        if (e.key === 'Enter' && petNameRef.current.value !== '') {
-            namePet(petNameRef.current.value);
+
+        if (e.key === 'Enter') {
+            
+            if(petNameRef.current.value = '') {
+                namePet('default')
+            } else {
+                namePet(petNameRef.current.value);
+            }
             closeModal();
         }
     };

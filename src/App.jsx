@@ -15,7 +15,7 @@ function App() {
 
   const [secondsPassed, setSecondsPassed] = useState(0);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [prompt, setPrompt] = useState('Choose an egg!');
+  const [prompt, setPrompt] = useState('');
 
   const petNameRef = useRef();
 
@@ -26,7 +26,7 @@ function App() {
     let newPet = new Pet(type, 'egg');
     setActivePet(newPet);
     console.log(newPet);
-
+    setPrompt("Click egg to hatch")
   }
   useInterval(passTime, 1000);
 
@@ -62,12 +62,14 @@ function App() {
   function resetPet() {
     setActivePet(null);
     setAnimProps(getAnimProps("egg"));
+    setModalIsOpen(false);
   }
 
   function hatchEgg() {
 
     growPet();
     setModalIsOpen(true);
+    setPrompt("")
 
   }
 
@@ -100,11 +102,19 @@ function App() {
 
   }
 
-  function namePet(newName) {
+  //Name pet entered name or give it a default name
+  function namePet(name) {
+    let newName = ''
+    if (newName === '') {
+      newName = activePet.type
+    } else {
+      newName = name
+    }
     setActivePet({
       ...activePet,
       name: newName
     })
+
   }
 
   function feedPet(foodValue) {
@@ -219,11 +229,11 @@ function App() {
         <nav className={`top-bar `}>
           {activePet ? <>
 
-            <div className={`needs ${activePet.age != 'egg' ? 'visible' : '' }`}>
+            <div className={`needs ${activePet.age != 'egg' ? 'visible' : ''}`}>
               <NeedBar need={activePet.food} needMax={activePet.maxFood} icon={'🍏'} />
               <NeedBar need={activePet.fun} needMax={activePet.maxFun} icon={'❤️'} />
             </div>
-            <div className={`need-buttons ${activePet.age != 'egg' ? 'visible' : '' }`}>
+            <div className={`need-buttons ${activePet.age != 'egg' ? 'visible' : ''}`}>
               <div className="foods">
                 <button onClick={() => feedPet(1)}>🍏</button>
                 <button onClick={() => feedPet(1)}>🥥</button>
@@ -262,14 +272,14 @@ function App() {
           <nav className='admin-panel'>
             <button onClick={() => resetPet()}>New pet</button>
             <button onClick={() => growPet()}>Grow pet</button>
+            <button onClick={openModal}>Name pet</button>
             {activePet.name ? <></> :
               <>
                 <button onClick={() => namePet(petNameRef.current.value)}>Name</button>
               </>}
-            <p>Time alive: {activePet.timeAlive}</p>
-            <p>{secondsPassed}</p>
+            <p>Time alive: {secondsPassed}</p>
             <p>{activePet.name ? activePet.name : 'this'} is a {activePet.age} {activePet.type}</p>
-            <button onClick={openModal}>Name pet</button>
+
           </nav>
         </> : <></>}
       </div>
