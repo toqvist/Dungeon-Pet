@@ -65,8 +65,8 @@ button, input {
 
 @media screen and (min-width: 1020px) {
     .game-wrapper {
-        transform: scale(3) translateY(33%);
-        max-height: 33vh;
+        transform: scale(3) translateY(29%);
+        max-height: 31.5vh;
     }
 }
     
