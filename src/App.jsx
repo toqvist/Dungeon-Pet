@@ -153,7 +153,7 @@ function App() {
       food: 0,
       fun: 0
     }
-    console.log("pet died! :(");
+    setPrompt(`${activePet.name ? activePet.name : 'pet'}` + " has died :(")
     updateSpriteAnimations(newPet);
   }
 
@@ -273,10 +273,7 @@ function App() {
             <button onClick={() => resetPet()}>New pet</button>
             <button onClick={() => growPet()}>Grow pet</button>
             <button onClick={openModal}>Name pet</button>
-            {activePet.name ? <></> :
-              <>
-                <button onClick={() => namePet(petNameRef.current.value)}>Name</button>
-              </>}
+            <button onClick={() => petDie(activePet)}>Die</button>
             <p>Time alive: {secondsPassed}</p>
             <p>{activePet.name ? activePet.name : 'this'} is a {activePet.age} {activePet.type}</p>
 
