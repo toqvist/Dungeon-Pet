@@ -16,19 +16,32 @@ function App() {
   const [secondsPassed, setSecondsPassed] = useState(0);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [prompt, setPrompt] = useState('');
+  const [promptFade, setPromptFade] = useState();
 
   const LOCAL_STORAGE_KEY = 'DungeonPets.Pet';
 
-  useEffect (() => {
+  useEffect(() => {
     const storedPet = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
-    if(storedPet) {
+    if (storedPet) {
       setActivePet(storedPet)
+      
+      if(storedPet.isAlive) {
+        setPrompt("Welcome back!")
+        setPromptFade(3)
+      } else {
+        setPrompt(`${storedPet.name ? storedPet.name : 'pet'}` + " has died :(")
+      }    
     }
+
   }, [])
 
   useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(activePet))
-  }, [activePet])  
+    if(activePet) {
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(activePet))
+    } else {
+      localStorage.clear();
+    }
+  }, [activePet])
 
 
 
@@ -75,7 +88,7 @@ function App() {
     setActivePet(null);
     setAnimProps(getAnimProps("egg"));
     setModalIsOpen(false);
-    
+
   }
 
   function hatchEgg() {
@@ -189,6 +202,16 @@ function App() {
         });
       }
       // console.log("time: " + newTime);
+    }
+    
+    if (promptFade) {
+      
+      setPromptFade(promptFade - 1)
+    }
+    if (promptFade <= 0) {
+      setPrompt('')
+      
+      
     }
   }
 
