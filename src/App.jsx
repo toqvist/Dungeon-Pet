@@ -1,13 +1,17 @@
 import { useState, useEffect, useRef } from 'react'
 import { SpriteAnimator } from 'react-sprite-animator'
 import { orky, shroomy, valiant, impy, zomby, getAnimProps, petList } from './pet_codex.js'
+import { Pet } from './Pet.js'
+
 import Eggs from './components/Eggs.jsx'
 import PetElement from './components/PetElement.jsx'
-import { Pet } from './Pet.js'
+import NewPetButton from './components/NewPetButton.jsx'
 import set from "./sprites/set.svg";
 import NeedBar from './components/NeedBar.jsx'
-import './app.css'
 import EnterName from './components/EnterName.jsx'
+
+import './app.css'
+
 
 function App() {
 
@@ -186,8 +190,8 @@ function App() {
       food: 0,
       fun: 0
     }
-    updateSpriteAnimations(newPet);
     setPrompt(`${activePet.name ? activePet.name : 'pet'}` + " has died :(")
+    updateSpriteAnimations(newPet);
     setModalIsOpen(false);
   }
 
@@ -339,19 +343,23 @@ function App() {
         <div style={{ backgroundImage: `url(${set})` }}
           className='game-grid'>
 
-          {activePet ?
+          {activePet ? <>
             <div className='center-in-grid'>
               <PetElement activePet={activePet} hatchEgg={() => hatchEgg(activePet)} />
+              
             </div>
-
+            <NewPetButton isAlive={activePet.isAlive} resetPet={resetPet}/>
+            </>
             :
             <Eggs createPet={createPet} />
           }
           <EnterName modalIsOpen={modalIsOpen} namePet={namePet} closeModal={closeModal}></EnterName>
-          {prompt ? <p className='prompt'>{prompt}</p> : <></>}
+          
+          {prompt && <p className='prompt'>{prompt}</p>}
         </div>
+
         {/* ADMIN PANEL */}
-        {activePet ? <>
+        {activePet && <>
           <nav className='admin-panel'>
             <button onClick={() => resetPet()}>New pet</button>
             <button onClick={() => growPet()}>Grow pet</button>
@@ -359,9 +367,8 @@ function App() {
             <button onClick={() => petDie(activePet)}>Die</button>
             <p>Time alive: {secondsPassed}</p>
             <p>{activePet.name ? activePet.name : 'this'} is a {activePet.age} {activePet.type}</p>
-
           </nav>
-        </> : <></>}
+        </>}
       </div>
 
     </div>
