@@ -69,6 +69,7 @@ button, input {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(7, 1fr);
+    position: relative;
 
 }
 
@@ -155,7 +156,7 @@ button, input {
 
 .enter-name {
     position: absolute;
-    top: 60%;
+    top: 80%;
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 0px;
@@ -177,7 +178,7 @@ button, input {
 .prompt {
     color: #629513;
     position: absolute;
-    top: 30%;
+    top: 20%;
     left: 50%;
     transform: translate(-50%, -50%);
     font-family: PixelFont;

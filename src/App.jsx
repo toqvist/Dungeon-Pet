@@ -82,7 +82,6 @@ function App() {
     }, [delay]);
   }
 
-
   function resetPet() {
     setPrompt('')
     setActivePet(null);
@@ -292,7 +291,7 @@ function App() {
 
         <div style={{ backgroundImage: `url(${set})` }}
           className='game-grid'>
-          <EnterName modalIsOpen={modalIsOpen} namePet={namePet} closeModal={closeModal}></EnterName>
+          
           {activePet ?
             <div className='center-in-grid'>
               <PetElement activePet={activePet} hatchEgg={hatchEgg} />
@@ -301,6 +300,7 @@ function App() {
             :
             <Eggs createPet={createPet} />
           }
+          <EnterName modalIsOpen={modalIsOpen} namePet={namePet} closeModal={closeModal}></EnterName>
           {prompt ? <p className='prompt'>{prompt}</p> : <></>}
         </div>
         {/* ADMIN PANEL */}
