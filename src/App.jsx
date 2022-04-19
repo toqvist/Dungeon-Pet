@@ -111,7 +111,17 @@ function App() {
 
   function growPet() {
   
-    const newPet = {
+   if(activePet.age === "egg") {
+    hatchEgg(activePet);
+    return
+   } 
+
+   if (activePet.age === "adult") {
+     petDie(activePet);
+     return
+   }
+   
+   const newPet = {
       ...activePet,
       age: nextAge(activePet.age),
     };
