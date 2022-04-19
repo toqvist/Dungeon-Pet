@@ -174,10 +174,15 @@ button, input {
     width: 256px;
     position:absolute;
     transform: translateY(190%);
+
 }
 
 .pet-name {
-    color: var(--leaf)
+    color: var(--leaf);
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .enter-name {
@@ -212,7 +217,7 @@ button, input {
 
 .new-pet-button {
     position: absolute;
-    top: 80%;
+    top: 75%;
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 3px;

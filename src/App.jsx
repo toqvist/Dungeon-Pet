@@ -22,6 +22,7 @@ function App() {
   const [prompt, setPrompt] = useState('');
   const [promptFade, setPromptFade] = useState();
   const [adminPanel, setAdminPanel] = useState(false);
+  const [petName, setPetName] = useState('');
 
   const LOCAL_STORAGE_KEY = 'DungeonPets.Pet';
 
@@ -89,6 +90,7 @@ function App() {
 
   function resetPet() {
     setPrompt('')
+    setPetName('')
     setActivePet(null);
     setAnimProps(getAnimProps("egg"));
     setModalIsOpen(false);
@@ -152,6 +154,7 @@ function App() {
       ...activePet,
       name: newName
     })
+    setPetName(newName)
 
   }
 
@@ -357,6 +360,7 @@ function App() {
           <EnterName modalIsOpen={modalIsOpen} namePet={namePet} closeModal={closeModal}></EnterName>
           
           {prompt && <p className='prompt'>{prompt}</p>}
+          {petName && <p className='pet-name'>{petName}</p>}
         </div>
 
         {/* ADMIN PANEL */}
