@@ -66,12 +66,10 @@ button, input {
 @media screen and (min-width: 1020px) {
     .game-wrapper {
         transform: scale(3) translateY(29%);
-        max-height: 31.5vh;
+        height: 31.5vh;
     }
 }
     
-
-
 .egg:hover {
     transform: scale3d(1.1, 1.1, 1.1);
     transition: transform 0.2s;
@@ -174,6 +172,8 @@ button, input {
     border-radius: 5px;
     background-color: aliceblue;
     width: 256px;
+    position:absolute;
+    transform: translateY(190%);
 }
 
 .pet-name {

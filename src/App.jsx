@@ -21,6 +21,7 @@ function App() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [prompt, setPrompt] = useState('');
   const [promptFade, setPromptFade] = useState();
+  const [adminPanel, setAdminPanel] = useState(false);
 
   const LOCAL_STORAGE_KEY = 'DungeonPets.Pet';
 
@@ -359,16 +360,20 @@ function App() {
         </div>
 
         {/* ADMIN PANEL */}
-        {activePet && <>
+        {adminPanel && activePet ? <>
           <nav className='admin-panel'>
             <button onClick={() => resetPet()}>New pet</button>
             <button onClick={() => growPet()}>Grow pet</button>
-            <button onClick={openModal}>Name pet</button>
+            <button onClick={() => setModalIsOpen(!modalIsOpen)}>Name pet</button>
             <button onClick={() => petDie(activePet)}>Die</button>
+            <button onClick={() => setAdminPanel(false)}>X</button>
             <p>Time alive: {secondsPassed}</p>
             <p>{activePet.name ? activePet.name : 'this'} is a {activePet.age} {activePet.type}</p>
           </nav>
-        </>}
+        </> 
+        :
+        <button onClick={() => setAdminPanel(true)}>Admin Panel</button>
+        }
       </div>
 
     </div>
