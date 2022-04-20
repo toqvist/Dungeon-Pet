@@ -181,16 +181,16 @@ export function getAnimProps(age) {
 
     if (age == 'egg') {
         return {
-            height: 16,
-            width: 16,
+            height: 32,
+            width: 32,
             frameCount: 1,
             fps: 6,
         }
     }
     if (age === 'baby') {
         return {
-            height: 16,
-            width: 16,
+            height: 32,
+            width: 32,
             frameCount: 4,
             fps: 6,
         }
@@ -213,8 +213,8 @@ export function getAnimProps(age) {
     }
     if (age === 'dead') {
         return {
-            height: 16,
-            width: 16,
+            height: 32,
+            width: 32,
             frameCount: 4,
             fps: 2,
          }

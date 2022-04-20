@@ -19,8 +19,10 @@ function App() {
 
   const [secondsPassed, setSecondsPassed] = useState(0);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  
   const [prompt, setPrompt] = useState('');
   const [promptFade, setPromptFade] = useState();
+  
   const [adminPanel, setAdminPanel] = useState(false);
   const [petName, setPetName] = useState('');
 
