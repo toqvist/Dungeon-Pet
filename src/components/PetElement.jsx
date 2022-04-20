@@ -41,6 +41,8 @@ export default function Pet({ activePet, hatchEgg }) {
                     className={`${facing ? 'facing-left' : ''}`}
 
                 />
+
+                
             </button>
         </>
     )

@@ -229,11 +229,15 @@ function App() {
       }
 
       //Food and fun should not decay if pet is still an egg
-      if (activePet.age !== 'egg' && newTime % activePet.decayRate == 0) {
+      if (activePet.age !== 'egg' && newTime) {
 
-        decayFood = true
-        decayFun = true
+        if(newTime % activePet.foodDecayrate === 0) {
+          decayFood = true
+        }
 
+        if(newTime % activePet.funDecayrate === 0) {
+          decayFun = true
+        }
       }
 
       if (newTime % activePet.growthRate === 0) {
@@ -320,7 +324,7 @@ function App() {
       run: newRun,
       animProps: newAnimProps
     });
-    console.log(newAnimProps)
+    //console.log(newAnimProps)
   }
 
   return (
