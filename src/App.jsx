@@ -19,10 +19,10 @@ function App() {
 
   const [secondsPassed, setSecondsPassed] = useState(0);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  
+
   const [prompt, setPrompt] = useState('');
   const [promptFade, setPromptFade] = useState();
-  
+
   const [adminPanel, setAdminPanel] = useState(false);
   const [petName, setPetName] = useState('');
 
@@ -108,22 +108,22 @@ function App() {
       age: nextAge(egg.age)
     }
     updateSpriteAnimations(newPet);
-    
+
   }
 
   function growPet() {
-  
-   if(activePet.age === "egg") {
-    hatchEgg(activePet);
-    return
-   } 
 
-   if (activePet.age === "adult") {
-     petDie(activePet);
-     return
-   }
-   
-   const newPet = {
+    if (activePet.age === "egg") {
+      hatchEgg(activePet);
+      return
+    }
+
+    if (activePet.age === "adult") {
+      petDie(activePet);
+      return
+    }
+
+    const newPet = {
       ...activePet,
       age: nextAge(activePet.age),
     };
@@ -155,6 +155,40 @@ function App() {
 
   }
 
+  function getEmotion() {
+    //Happy: food+fun >= 17 && food >=7 && fun >= 7
+    // Content food + fun >= 12
+    // Okay food + fun >= 9 +
+    // Bored fun <= 4 && food > 3
+    // Sad food <= 3 || fun <= 3
+
+    let newEmotion = 'okay'
+
+    if ((activePet.food + activePet.fun >= 17)
+      && activePet.food >= 7
+      && activePet.fun >= 7) {
+      newEmotion = 'happy'
+      return newEmotion
+    }
+    if (activePet.food + activePet.fun >= 12) {
+      newEmotion = 'content'
+      return newEmotion
+    }
+    if (activePet.food + activePet.fun >= 9) {
+      newEmotion = 'okay'
+      return newEmotion
+    }
+    if (activePet.fun <= 4 && activePet.food > 3) {
+      newEmotion = 'bored'
+      return newEmotion
+    }
+    if (activePet.food <= 3 || activePet.fun <= 3) {
+      newEmotion = 'sad'
+      return newEmotion
+    }
+    return newEmotion
+  }
+
   //Name pet entered name or give it a default name
   function namePet(newName) {
 
@@ -178,10 +212,12 @@ function App() {
     } else {
       newFood = currentHunger + foodValue
     }
-    setActivePet({
+    const newPet = {
       ...activePet,
-      food: newFood
-    });
+      food: newFood,
+      emotion: getEmotion()
+    }
+    updateSpriteAnimations(newPet)
   }
 
   function entertainPet(funValue) {
@@ -192,10 +228,12 @@ function App() {
     } else {
       newFun = currentFun + funValue;
     }
-    setActivePet({
+    const newPet = {
       ...activePet,
-      fun: newFun
-    });
+      fun: newFun,
+      emotion: getEmotion()
+    }
+    updateSpriteAnimations(newPet)
   }
 
   function petDie(unfortunatePet) {
@@ -216,13 +254,13 @@ function App() {
     let grow = false
     let decayFood = false
     let decayFun = false
-
+    let changeEmotion = false
 
     //There needs to be a pet that is alive
     if (activePet && activePet.isAlive) {
       const newTime = activePet.secondsAlive + 1;
       setSecondsPassed(newTime);
-      
+
       let newPet = {
         ...activePet,
         secondsAlive: newTime
@@ -231,11 +269,11 @@ function App() {
       //Food and fun should not decay if pet is still an egg
       if (activePet.age !== 'egg' && newTime) {
 
-        if(newTime % activePet.foodDecayrate === 0) {
+        if (newTime % activePet.foodDecayrate === 0) {
           decayFood = true
         }
 
-        if(newTime % activePet.funDecayrate === 0) {
+        if (newTime % activePet.funDecayrate === 0) {
           decayFun = true
         }
       }
@@ -244,8 +282,13 @@ function App() {
         grow = true
       }
 
-      updatePet(newPet, grow, decayFood, decayFun);
-      
+      //If any value tied to happiness is changed, update the emotion to match
+      if (decayFun || decayFood) {
+        changeEmotion = true
+      }
+
+      updatePet(newPet, grow, decayFood, decayFun, changeEmotion);
+
       //Prompt
       if (promptFade) {
         setPromptFade(promptFade - 1)
@@ -259,10 +302,10 @@ function App() {
   }
 
   //Used to update several pet variables at once, from passTime usually
-  function updatePet(petToUpdate, grow, decayFood, decayFun) {
+  function updatePet(petToUpdate, grow, decayFood, decayFun, changeEmotion) {
     let newPet = { ...petToUpdate }
-    
-    if (grow ) {
+
+    if (grow) {
 
       let newAge = nextAge(newPet.age);
 
@@ -270,7 +313,7 @@ function App() {
         hatchEgg(newPet)
         return
       }
-      
+
       if (newAge === 'dead') {
         petDie(newPet)
         return
@@ -280,7 +323,7 @@ function App() {
         ...newPet,
         age: newAge
       }
-    } 
+    }
 
     if (decayFood) {
       newPet = {
@@ -299,11 +342,16 @@ function App() {
     if (newPet.food <= 0 || newPet.fun <= 0) {
       petDie(newPet);
       return
-    } else {
-      updateSpriteAnimations(newPet);
     }
 
-
+    if (changeEmotion) {
+      newPet = {
+        ...newPet,
+        emotion: getEmotion()
+      }
+      console.log(newEmotion)
+    }
+    updateSpriteAnimations(newPet);
   }
 
   //Should always be used to update pet, 
@@ -366,15 +414,15 @@ function App() {
           {activePet ? <>
             <div className='center-in-grid'>
               <PetElement activePet={activePet} hatchEgg={() => hatchEgg(activePet)} />
-              
+
             </div>
-            <NewPetButton isAlive={activePet.isAlive} resetPet={resetPet}/>
-            </>
+            <NewPetButton isAlive={activePet.isAlive} resetPet={resetPet} />
+          </>
             :
             <Eggs createPet={createPet} />
           }
           <EnterName modalIsOpen={modalIsOpen} namePet={namePet} closeModal={closeModal}></EnterName>
-          
+
           {prompt && <p className='prompt'>{prompt}</p>}
           {petName && <p className='pet-name'>{petName}</p>}
         </div>
@@ -388,11 +436,12 @@ function App() {
             <button onClick={() => petDie(activePet)}>Die</button>
             <button onClick={() => setAdminPanel(false)}>X</button>
             <p>Time alive: {secondsPassed}</p>
+            <p>is feeling {activePet.emotion}</p>
             <p>{activePet.name ? activePet.name : 'this'} is a {activePet.age} {activePet.type}</p>
           </nav>
-        </> 
-        :
-        <button onClick={() => setAdminPanel(true)}>Admin Panel</button>
+        </>
+          :
+          <button onClick={() => setAdminPanel(true)}>Admin Panel</button>
         }
       </div>
 
