@@ -17,8 +17,12 @@ function App() {
 
   const [activePet, setActivePet] = useState();
 
+  const [petPosition, setPetPosition] = useState({ x: 50, y: 50 });
+
   const [secondsPassed, setSecondsPassed] = useState(0);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const [petName, setPetName] = useState('');
 
   const [prompt, setPrompt] = useState('');
   const [promptFade, setPromptFade] = useState();
@@ -27,7 +31,6 @@ function App() {
   const [emotionFade, setEmotionFade] = useState()
 
   const [adminPanel, setAdminPanel] = useState(false);
-  const [petName, setPetName] = useState('');
 
   const LOCAL_STORAGE_KEY = 'DungeonPets.Pet';
 
@@ -78,8 +81,6 @@ function App() {
       setShowEmotion(true)
       setEmotionFade(duration)
     }
-
-
   }
 
   //https://overreacted.io/making-setinterval-declarative-with-react-hooks/
@@ -399,7 +400,7 @@ function App() {
 
   return (
     <div className="App site-wrapper" >
-      
+
       <div className="game-wrapper">
 
         {/* GAME ACTIONS */}
@@ -435,7 +436,12 @@ function App() {
           className='game-grid'>
 
           {activePet ? <>
-            <div className='center-in-grid'>
+            <div style={{
+              position: 'absolute',
+              transform: 'translate(-50%, -50%)',
+              top: `${petPosition.y}%`,
+              left: `${petPosition.x}%`
+            }}>
               <PetElement activePet={activePet}
                 hatchEgg={() => hatchEgg(activePet)}
                 showEmotion={showEmotion}
@@ -473,6 +479,7 @@ function App() {
 
     </div>
   )
+
 }
 
 export default App

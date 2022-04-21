@@ -228,8 +228,8 @@ button, input {
 }
 
 .emotion-bubble {
-    display: flex;
-    justify-content: center;
-    margin-left: 0%;
-    height: 11px;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top:-20%;
+    left:50%;
 }

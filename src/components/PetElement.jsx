@@ -37,8 +37,9 @@ export default function Pet({ activePet, hatchEgg, showEmotion }) {
                 <div className='emotion-bubble '>
 
 
-                    {showEmotion && <EmotionBubble emotion={getEmotionSprite(activePet.emotion)} />}
-                    
+                    {showEmotion && <EmotionBubble emotion={getEmotionSprite(activePet.emotion)} 
+                    className='emotion-bubble'/>}
+
                     {/* {showEmotion 
                     ? 
                     : <EmotionBubble emotion={bubbleout} frame={1} />
