@@ -24,6 +24,8 @@ export class Pet {
         this.decayRate = 10;
         this.growthRate = 900
 
+        this.emotion = 'okay'
+
         //Find pet in list from pet codex and get initial sprites
         const pet = petList.find(pet => pet.type === type);
         this.idle = pet[age].idle
@@ -34,7 +36,5 @@ export class Pet {
         this.animProps = getAnimProps(this.age);
 
         this.secondsAlive = 0
-
-        this.emotion = 'okay'
     }
 }

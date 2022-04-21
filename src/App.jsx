@@ -23,6 +23,9 @@ function App() {
   const [prompt, setPrompt] = useState('');
   const [promptFade, setPromptFade] = useState();
 
+  const [showEmotion, setShowEmotion] = useState(false)
+  const [emotionFade, setEmotionFade] = useState()
+
   const [adminPanel, setAdminPanel] = useState(false);
   const [petName, setPetName] = useState('');
 
@@ -68,6 +71,11 @@ function App() {
   function openModal() {
     setModalIsOpen(true);
   }
+  
+  function emotionBubble () {
+    setShowEmotion(true)
+    setEmotionFade(5)
+  }
 
   //https://overreacted.io/making-setinterval-declarative-with-react-hooks/
   function useInterval(callback, delay) {
@@ -96,6 +104,8 @@ function App() {
     setActivePet(null);
     setAnimProps(getAnimProps("egg"));
     setModalIsOpen(false);
+    setShowEmotion(false)
+    setEmotionFade()
 
   }
 
@@ -156,12 +166,6 @@ function App() {
   }
 
   function getEmotion() {
-    //Happy: food+fun >= 17 && food >=7 && fun >= 7
-    // Content food + fun >= 12
-    // Okay food + fun >= 9 +
-    // Bored fun <= 4 && food > 3
-    // Sad food <= 3 || fun <= 3
-
     let newEmotion = 'okay'
 
     if ((activePet.food + activePet.fun >= 17)
@@ -217,7 +221,9 @@ function App() {
       food: newFood,
       emotion: getEmotion()
     }
+    
     updateSpriteAnimations(newPet)
+    emotionBubble();
   }
 
   function entertainPet(funValue) {
@@ -233,7 +239,9 @@ function App() {
       fun: newFun,
       emotion: getEmotion()
     }
+    
     updateSpriteAnimations(newPet)
+    emotionBubble();
   }
 
   function petDie(unfortunatePet) {
@@ -265,18 +273,16 @@ function App() {
         ...activePet,
         secondsAlive: newTime
       }
-      
+
       //Food and fun should not decay if pet is still an egg
       if (activePet.age !== 'egg') {
 
         if (newTime % activePet.foodDecayRate === 0) {
           decayFood = true
-          console.log('food shoul decay')
         }
 
         if (newTime % activePet.funDecayRate === 0) {
           decayFun = true
-          console.log('fun should decay')
         }
       }
 
@@ -298,6 +304,16 @@ function App() {
 
       if (promptFade <= 0) {
         setPrompt('')
+
+      }
+
+      if (emotionFade) {
+        setEmotionFade(emotionFade - 1)
+        console.log('emotion fade: ' + emotionFade)
+      }
+
+      if (emotionFade <= 0) {
+        setShowEmotion(false)
 
       }
     }
@@ -414,7 +430,10 @@ function App() {
 
           {activePet ? <>
             <div className='center-in-grid'>
-              <PetElement activePet={activePet} hatchEgg={() => hatchEgg(activePet)} />
+              <PetElement activePet={activePet} 
+              hatchEgg={() => hatchEgg(activePet)}
+              showEmotion={showEmotion}
+              />
 
             </div>
             <NewPetButton isAlive={activePet.isAlive} resetPet={resetPet} />

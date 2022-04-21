@@ -3,8 +3,9 @@ import { useState } from 'react'
 import { SpriteAnimator } from 'react-sprite-animator'
 import { orky, shroomy, valiant, impy, zomby, getAnimProps, petList } from '../pet_codex.js'
 import { getEmotionSprite } from '../Emotions.js'
+import { useEffect } from 'react/cjs/react.production.min'
 
-export default function Pet({ activePet, hatchEgg }) {
+export default function Pet({ activePet, hatchEgg, showEmotion }) {
 
     const [facing, setFacing] = useState("");
 
@@ -24,23 +25,25 @@ export default function Pet({ activePet, hatchEgg }) {
         } else {
             setFacing("left");
         }
-
     }
+    
 
     return (
         <>
             <button onClick={() => handleClick()} className='button-no-style pet'>
-                <div>
-                    <SpriteAnimator
-                        sprite={getEmotionSprite(activePet.emotion)}
-                        shouldAnimate={true}
-                        frameCount={8}
-                        fps={8}
-                        width={11}
-                        height={11}
-                        stopLastFrame={true}
-                        className={`facing-right`}
-                    />
+                <div className='emotion-bubble'>
+                    {showEmotion &&
+                        <SpriteAnimator
+                            sprite={getEmotionSprite(activePet.emotion)}
+                            shouldAnimate={true}
+                            frameCount={8}
+                            fps={8}
+                            width={11}
+                            height={11}
+                            stopLastFrame={true}
+                            className={``}
+                        />
+                    }
                 </div>
                 <SpriteAnimator
                     sprite={activePet.idle}
