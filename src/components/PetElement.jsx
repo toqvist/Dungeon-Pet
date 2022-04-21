@@ -2,8 +2,10 @@ import React from 'react'
 import { useState } from 'react'
 import { SpriteAnimator } from 'react-sprite-animator'
 import { orky, shroomy, valiant, impy, zomby, getAnimProps, petList } from '../pet_codex.js'
-import { getEmotionSprite } from '../Emotions.js'
 import { useEffect } from 'react/cjs/react.production.min'
+import EmotionBubble from './EmotionBubble.jsx'
+import bubbleout from '../sprites/emotions/bubbleout.svg'
+import { getEmotionSprite } from '../Emotions.js'
 
 export default function Pet({ activePet, hatchEgg, showEmotion }) {
 
@@ -26,24 +28,24 @@ export default function Pet({ activePet, hatchEgg, showEmotion }) {
             setFacing("left");
         }
     }
-    
+
 
     return (
         <>
             <button onClick={() => handleClick()} className='button-no-style pet'>
-                <div className='emotion-bubble'>
-                    {showEmotion &&
-                        <SpriteAnimator
-                            sprite={getEmotionSprite(activePet.emotion)}
-                            shouldAnimate={true}
-                            frameCount={8}
-                            fps={8}
-                            width={11}
-                            height={11}
-                            stopLastFrame={true}
-                            className={``}
-                        />
-                    }
+
+                <div className='emotion-bubble '>
+
+
+                    {showEmotion && <EmotionBubble emotion={getEmotionSprite(activePet.emotion)} />}
+                    
+                    {/* {showEmotion 
+                    ? 
+                    : <EmotionBubble emotion={bubbleout} frame={1} />
+                           
+                    } */}
+             
+                    
                 </div>
                 <SpriteAnimator
                     sprite={activePet.idle}
@@ -53,7 +55,6 @@ export default function Pet({ activePet, hatchEgg, showEmotion }) {
                     width={activePet.animProps.width}
                     height={activePet.animProps.height}
                     className={`${facing ? 'facing-left' : ''}`}
-
                 />
 
             </button>
