@@ -71,10 +71,15 @@ function App() {
   function openModal() {
     setModalIsOpen(true);
   }
-  
-  function emotionBubble () {
-    setShowEmotion(true)
-    setEmotionFade(5)
+
+  function emotionBubble(duration) {
+
+    if (activePet.isAlive && activePet.age != 'egg') {
+      setShowEmotion(true)
+      setEmotionFade(duration)
+    }
+
+
   }
 
   //https://overreacted.io/making-setinterval-declarative-with-react-hooks/
@@ -221,9 +226,9 @@ function App() {
       food: newFood,
       emotion: getEmotion()
     }
-    
+
     updateSpriteAnimations(newPet)
-    emotionBubble();
+    emotionBubble(2);
   }
 
   function entertainPet(funValue) {
@@ -237,11 +242,11 @@ function App() {
     const newPet = {
       ...activePet,
       fun: newFun,
-      emotion: getEmotion()
+      emotion: getEmotion(2)
     }
-    
+
     updateSpriteAnimations(newPet)
-    emotionBubble();
+    emotionBubble(2);
   }
 
   function petDie(unfortunatePet) {
@@ -430,9 +435,9 @@ function App() {
 
           {activePet ? <>
             <div className='center-in-grid'>
-              <PetElement activePet={activePet} 
-              hatchEgg={() => hatchEgg(activePet)}
-              showEmotion={showEmotion}
+              <PetElement activePet={activePet}
+                hatchEgg={() => hatchEgg(activePet)}
+                showEmotion={showEmotion}
               />
 
             </div>
