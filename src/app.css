@@ -34,6 +34,7 @@ button, input {
     display:grid;
     grid-template-columns: 1fr min(256px, 100%) 1fr;
     grid-template-rows: 100vh;
+    overflow: hidden;
 }
 
 .game-wrapper {

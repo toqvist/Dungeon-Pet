@@ -9,7 +9,7 @@ import NewPetButton from './components/NewPetButton.jsx'
 import set from "./sprites/set.svg";
 import NeedBar from './components/NeedBar.jsx'
 import EnterName from './components/EnterName.jsx'
-
+import { useSpring, animated } from 'react-spring'
 import './app.css'
 
 
@@ -18,6 +18,7 @@ function App() {
   const [activePet, setActivePet] = useState();
 
   const [petPosition, setPetPosition] = useState({ x: 50, y: 50 });
+  const [targetPetPosition, setTargetPetPosition] = useState({ x: 50, y: 50 });
 
   const [secondsPassed, setSecondsPassed] = useState(0);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -398,6 +399,23 @@ function App() {
     //console.log(newAnimProps)
   }
 
+  const move = useSpring({
+    config: { duration: 2000 },
+    from: {
+      position: 'absolute',
+      transform: 'translate(-50%, -50%)',
+      top: `${petPosition.y}%`,
+      left: `${petPosition.x}%`
+    },
+    to: {
+      position: 'absolute',
+      transform: 'translate(-50%, -50%)',
+      top: `${targetPetPosition.y}%`,
+      left: `${targetPetPosition.x}%`
+    }
+  })
+
+
   return (
     <div className="App site-wrapper" >
 
@@ -436,18 +454,13 @@ function App() {
           className='game-grid'>
 
           {activePet ? <>
-            <div style={{
-              position: 'absolute',
-              transform: 'translate(-50%, -50%)',
-              top: `${petPosition.y}%`,
-              left: `${petPosition.x}%`
-            }}>
+            <animated.div style={move}>
               <PetElement activePet={activePet}
                 hatchEgg={() => hatchEgg(activePet)}
                 showEmotion={showEmotion}
               />
 
-            </div>
+            </animated.div>
             <NewPetButton isAlive={activePet.isAlive} resetPet={resetPet} />
           </>
             :
@@ -462,6 +475,8 @@ function App() {
         {/* ADMIN PANEL */}
         {adminPanel && activePet ? <>
           <nav className='admin-panel'>
+            <button onClick={() => setTargetPetPosition({x: 30, y:30})}>left</button>
+            <button onClick={() => setTargetPetPosition({x: 80, y:80})}>right</button>
             <button onClick={() => resetPet()}>New pet</button>
             <button onClick={() => growPet()}>Grow pet</button>
             <button onClick={() => setModalIsOpen(!modalIsOpen)}>Name pet</button>
