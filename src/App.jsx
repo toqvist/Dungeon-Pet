@@ -265,16 +265,18 @@ function App() {
         ...activePet,
         secondsAlive: newTime
       }
-
+      
       //Food and fun should not decay if pet is still an egg
-      if (activePet.age !== 'egg' && newTime) {
+      if (activePet.age !== 'egg') {
 
-        if (newTime % activePet.foodDecayrate === 0) {
+        if (newTime % activePet.foodDecayRate === 0) {
           decayFood = true
+          console.log('food shoul decay')
         }
 
-        if (newTime % activePet.funDecayrate === 0) {
+        if (newTime % activePet.funDecayRate === 0) {
           decayFun = true
+          console.log('fun should decay')
         }
       }
 
@@ -349,7 +351,6 @@ function App() {
         ...newPet,
         emotion: getEmotion()
       }
-      console.log(newEmotion)
     }
     updateSpriteAnimations(newPet);
   }

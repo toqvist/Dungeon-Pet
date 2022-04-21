@@ -29,7 +29,7 @@ export default function Pet({ activePet, hatchEgg }) {
 
     return (
         <>
-            <button onClick={() => handleClick()} className='button-no-style'>
+            <button onClick={() => handleClick()} className='button-no-style pet'>
                 <div>
                     <SpriteAnimator
                         sprite={getEmotionSprite(activePet.emotion)}
@@ -39,6 +39,7 @@ export default function Pet({ activePet, hatchEgg }) {
                         width={11}
                         height={11}
                         stopLastFrame={true}
+                        className={`facing-right`}
                     />
                 </div>
                 <SpriteAnimator

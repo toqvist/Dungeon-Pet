@@ -13,15 +13,15 @@ export class Pet {
         this.food = 5;
         this.maxFood = 10;
         this.foodDecay = 1;
-        this.foodDecayRate = 45;
+        this.foodDecayRate = 60;
 
         this.fun = 5;
         this.maxFun = 10;
         this.funDecay = 1;
-        this.funDecayRate = 25;
+        this.funDecayRate = 30;
 
         //How often food and fun will decrease
-        this.decayRate = 20;
+        this.decayRate = 10;
         this.growthRate = 900
 
         //Find pet in list from pet codex and get initial sprites
