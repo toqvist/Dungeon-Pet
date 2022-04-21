@@ -1,14 +1,13 @@
-import happy from './sprites/emotions/happy-sheet´';
-import content from './sprites/emotions/content-sheet'
-import okay from './sprites/emotions/okay-sheet';
-import sad from './sprites/emotions/sad-sheet';
-import angry from './sprites/emotions/angry-sheet';
-
+import happy from './sprites/emotions/happy-sheet.svg';
+import content from './sprites/emotions/content-sheet.svg'
+import okay from './sprites/emotions/okay-sheet.svg';
+import sad from './sprites/emotions/sad-sheet.svg';
+import angry from './sprites/emotions/angry-sheet.svg';
+import bored from './sprites/emotions/bored-sheet.svg'
 
 
 
 export function getEmotionSprite (emotion) {
-    //create a switch/case for emotions
     switch (emotion) {
         case 'happy':
             return happy;
@@ -20,6 +19,7 @@ export function getEmotionSprite (emotion) {
             return sad
         case 'angry':
             return angry
+        case 'bored':
+            return bored
     }
-
 }

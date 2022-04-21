@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { SpriteAnimator } from 'react-sprite-animator'
 import { orky, shroomy, valiant, impy, zomby, getAnimProps, petList } from '../pet_codex.js'
+import { getEmotionSprite } from '../Emotions.js'
 
 export default function Pet({ activePet, hatchEgg }) {
 
@@ -14,7 +15,6 @@ export default function Pet({ activePet, hatchEgg }) {
         } else {
             flip();
         }
-
     }
 
     function flip() {
@@ -30,6 +30,17 @@ export default function Pet({ activePet, hatchEgg }) {
     return (
         <>
             <button onClick={() => handleClick()} className='button-no-style'>
+                <div>
+                    <SpriteAnimator
+                        sprite={getEmotionSprite(activePet.emotion)}
+                        shouldAnimate={true}
+                        frameCount={8}
+                        fps={8}
+                        width={11}
+                        height={11}
+                        stopLastFrame={true}
+                    />
+                </div>
                 <SpriteAnimator
                     sprite={activePet.idle}
                     shouldAnimate={activePet.animProps.shouldAnimate}
@@ -40,19 +51,6 @@ export default function Pet({ activePet, hatchEgg }) {
                     className={`${facing ? 'facing-left' : ''}`}
 
                 />
-                {/* <div>
-                    <SpriteAnimator
-                        sprite={activePet.idle}
-                        shouldAnimate={true}
-                        frameCount={8}
-                        fps={activePet.animProps.fps}
-                        width={activePet.animProps.width}
-                        height={activePet.animProps.height}
-                        className={`${facing ? 'facing-left' : ''}`}
-
-                    />
-                </div> */}
-
 
             </button>
         </>
