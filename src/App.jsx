@@ -266,6 +266,8 @@ function App() {
     setPrompt(`${activePet.name ? activePet.name : 'pet'}` + " has died :(")
     updateSpriteAnimations(newPet);
     setModalIsOpen(false);
+    setPetPosition({ x: 50, y: 50 });
+    setTargetPetPosition({ x: 50, y: 50 });
   }
 
   function passTime() {
