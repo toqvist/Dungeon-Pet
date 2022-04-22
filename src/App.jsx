@@ -20,6 +20,7 @@ function App() {
 
   const [petPosition, setPetPosition] = useState({ x: 50, y: 50 });
   const [targetPetPosition, setTargetPetPosition] = useState({ x: 50, y: 50 });
+  let randomWander = useRef(10);
 
   const [secondsPassed, setSecondsPassed] = useState(0);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -34,7 +35,7 @@ function App() {
 
   const [adminPanel, setAdminPanel] = useState(false);
 
-  let randomWander = useRef(10);
+  
 
   const LOCAL_STORAGE_KEY = 'DungeonPets.Pet';
 
@@ -113,11 +114,9 @@ function App() {
     setPrompt('')
     setPetName('')
     setActivePet(null);
-    setAnimProps(getAnimProps("egg"));
     setModalIsOpen(false);
     setShowEmotion(false)
     emotionFade.current = 0;
-
   }
 
   function hatchEgg(egg) {
@@ -299,6 +298,7 @@ function App() {
         }
 
         if (newTime % randomWander.current  === 0) {
+          
           wander();
 
           newPet = {
@@ -306,7 +306,7 @@ function App() {
             doing: 'run'
           }
 
-          setActivePet(newPet);
+          // setActivePet(newPet);
         }
       }
 
@@ -471,11 +471,6 @@ function App() {
   }
 
   function runTo(targetX, targetY, dur) {
-    //change
-    //direction
-    //sprite
-
-    // updateSpriteAnimations(newPet, runa, );
 
     let newFacingRight = true
     if (targetX < petPosition.x) {
@@ -485,6 +480,7 @@ function App() {
     }
 
     setTargetPetPosition({
+      ...targetPetPosition,
       x: targetX,
       y: targetY,
       duration: dur,
