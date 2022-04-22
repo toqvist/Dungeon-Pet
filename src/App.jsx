@@ -27,26 +27,26 @@ function App() {
   const [petName, setPetName] = useState('');
 
   const [prompt, setPrompt] = useState('');
-  const [promptFade, setPromptFade] = useState();
+  let promptFade = useRef(0);
 
   const [showEmotion, setShowEmotion] = useState(false)
-  // const [emotionFade, setEmotionFade] = useState()
   let emotionFade = useRef(0);
 
   const [adminPanel, setAdminPanel] = useState(false);
 
-  const [randomWander, setRandomWander] = useState(10);
+  let randomWander = useRef(10);
 
   const LOCAL_STORAGE_KEY = 'DungeonPets.Pet';
 
   useEffect(() => {
     const storedPet = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
     if (storedPet) {
+    
       setActivePet(storedPet)
 
       if (storedPet.isAlive) {
         setPrompt("Welcome back!")
-        setPromptFade(3)
+        promptFade.current = 3
       } else {
         setPrompt(`${storedPet.name ? storedPet.name : 'pet'}` + " has died :(")
       }
@@ -298,7 +298,7 @@ function App() {
           decayFun = true
         }
 
-        if (newTime % randomWander  === 0) {
+        if (newTime % randomWander.current  === 0) {
           wander();
 
           newPet = {
@@ -322,13 +322,12 @@ function App() {
       updatePet(newPet, grow, decayFood, decayFun, changeEmotion);
 
       //Prompt
-      if (promptFade) {
-        setPromptFade(promptFade - 1)
+      if (promptFade.current) {
+        promptFade.current -= 1;
       }
 
-      if (promptFade <= 0) {
+      if (promptFade.current <= 0) {
         setPrompt('')
-
       }
       
       if (emotionFade.current > 0) {
@@ -499,7 +498,8 @@ function App() {
       doing: 'idle'
     }
     let randomBoundNumber = Math.floor(Math.random() * (gConfig.wanderFreqUpper - gConfig.wanderFreqLower + 1)) + gConfig.wanderFreqLower
-    setRandomWander(randomBoundNumber)
+    // setRandomWander(randomBoundNumber)
+    randomWander.current = randomBoundNumber
     setActivePet(newPet);
   }
 
