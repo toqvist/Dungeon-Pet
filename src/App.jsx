@@ -9,7 +9,7 @@ import NewPetButton from './components/NewPetButton.jsx'
 import set from "./sprites/set.svg";
 import NeedBar from './components/NeedBar.jsx'
 import EnterName from './components/EnterName.jsx'
-import { useSpring, animated } from 'react-spring'
+import { useSpring, animated, easings } from 'react-spring'
 import './app.css'
 
 
@@ -106,6 +106,7 @@ function App() {
   }
 
   function resetPet() {
+    setPetPosition({ x: 50, y: 50 });
     setPrompt('')
     setPetName('')
     setActivePet(null);
@@ -291,6 +292,10 @@ function App() {
         if (newTime % activePet.funDecayRate === 0) {
           decayFun = true
         }
+
+        if (newTime % 10 === 0) {
+          wander();
+        }
       }
 
       if (newTime % activePet.growthRate === 0) {
@@ -399,8 +404,9 @@ function App() {
     //console.log(newAnimProps)
   }
 
+
   const move = useSpring({
-    config: { duration: 2000 },
+    config: { duration: targetPetPosition.duration },
     from: {
       position: 'absolute',
       transform: 'translate(-50%, -50%)',
@@ -415,6 +421,46 @@ function App() {
     }
   })
 
+  function solveDuration(newX, newY, oldPosition, speed) {
+    let distanceX = newX - oldPosition.x
+    let distanceY = newY - oldPosition.y
+
+    if (distanceX < 0) {
+      distanceX = distanceX * -1
+    }
+    if (distanceY < 0) {
+      distanceY = distanceY * -1
+    }
+
+    //calculate distance using pythagorean theorem
+    let distance = Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2))
+
+    //duration equals distance/speed
+    const duration = distance / speed;
+    return duration;
+  }
+
+  function wander() {
+
+    const newX = Math.floor(Math.random() * 70) + 10;
+    const newY = Math.floor(Math.random() * 60) + 20;
+
+    //calculate the distance between the pet and the target position
+
+    const duration = solveDuration(newX, newY, petPosition, activePet.speed);
+    runTo(newX, newY, duration * 1000);
+  }
+
+  function runTo(targetX, targetY, dur) {
+    //change
+    //direction
+    //sprite
+    setTargetPetPosition({
+      x: targetX,
+      y: targetY,
+      duration: dur
+    })
+  }
 
   return (
     <div className="App site-wrapper" >
@@ -475,8 +521,8 @@ function App() {
         {/* ADMIN PANEL */}
         {adminPanel && activePet ? <>
           <nav className='admin-panel'>
-            <button onClick={() => setTargetPetPosition({x: 30, y:30})}>left</button>
-            <button onClick={() => setTargetPetPosition({x: 80, y:80})}>right</button>
+            <button onClick={() => setTargetPetPosition({ x: 20, y: 50 })}>left</button>
+            <button onClick={() => setTargetPetPosition({ x: 80, y: 50 })}>right</button>
             <button onClick={() => resetPet()}>New pet</button>
             <button onClick={() => growPet()}>Grow pet</button>
             <button onClick={() => setModalIsOpen(!modalIsOpen)}>Name pet</button>

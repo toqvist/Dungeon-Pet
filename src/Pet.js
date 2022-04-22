@@ -35,6 +35,9 @@ export class Pet {
         //AnimProp is an object with properties related to sprite animation speed and size
         this.animProps = getAnimProps(this.age);
 
+        this.doing = 'idle';
+        this.speed = 10;
+
         this.secondsAlive = 0
     }
 }
