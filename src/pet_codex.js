@@ -197,7 +197,7 @@ export function getAnimProps(age) {
             height: 32,
             width: 32,
             frameCount: 4,
-            fps: 8,
+            fps: 6,
         }
     }
     if (age === 'teen') {
@@ -205,7 +205,7 @@ export function getAnimProps(age) {
             height: 32,
             width: 32,
             frameCount: 4,
-            fps: 8,
+            fps: 6,
         }
     }
     if (age === 'adult') {
@@ -213,7 +213,7 @@ export function getAnimProps(age) {
             height: 32,
             width: 32,
             frameCount: 4,
-            fps: 8,
+            fps: 6,
         }
     }
     if (age === 'dead') {

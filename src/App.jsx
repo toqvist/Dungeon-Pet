@@ -484,6 +484,8 @@ function App() {
     let newFacingRight = true
     if (targetX < petPosition.x) {
       newFacingRight = false
+    } else {
+      newFacingRight = true
     }
 
     setTargetPetPosition({
@@ -564,9 +566,6 @@ function App() {
         {/* ADMIN PANEL */}
         {adminPanel && activePet ? <>
           <nav className='admin-panel'>
-
-            <button onClick={() => setTargetPetPosition({ x: 20, y: 50 })}>left</button>
-            <button onClick={() => setTargetPetPosition({ x: 80, y: 50 })}>right</button>
             <button onClick={() => resetPet()}>New pet</button>
             <button onClick={() => growPet()}>Grow pet</button>
             <button onClick={() => setModalIsOpen(!modalIsOpen)}>Name pet</button>
