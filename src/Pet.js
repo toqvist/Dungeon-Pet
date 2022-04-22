@@ -36,6 +36,7 @@ export class Pet {
         this.animProps = getAnimProps(this.age);
 
         this.doing = 'idle';
+        this.facingRight = true;
         this.speed = 10;
 
         this.secondsAlive = 0

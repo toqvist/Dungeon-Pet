@@ -16,17 +16,12 @@ export default function Pet({ activePet, hatchEgg, showEmotion }) {
         if (activePet.age === "egg") {
             hatchEgg();
         } else {
-            flip();
+            pet()
         }
     }
 
-    function flip() {
-
-        if (facing === "left") {
-            setFacing("");
-        } else {
-            setFacing("left");
-        }
+    function pet() {
+        
     }
 
 

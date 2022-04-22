@@ -409,15 +409,15 @@ function App() {
     config: { duration: targetPetPosition.duration },
     from: {
       position: 'absolute',
-      transform: 'translate(-50%, -50%)',
+      transform: `translate(-50%, -50%) rotateY(${targetPetPosition.facingRight ? 0 : 180}deg)`,
       top: `${petPosition.y}%`,
       left: `${petPosition.x}%`
     },
     to: {
       position: 'absolute',
-      transform: 'translate(-50%, -50%)',
+      transform: `translate(-50%, -50%) rotateY(${targetPetPosition.facingRight ? 0 : 180}deg)`,
       top: `${targetPetPosition.y}%`,
-      left: `${targetPetPosition.x}%`
+      left: `${targetPetPosition.x}%`,
     }
   })
 
@@ -442,6 +442,7 @@ function App() {
 
   function wander() {
 
+    //Generate a random position within the centre of the game grid
     const newX = Math.floor(Math.random() * 70) + 10;
     const newY = Math.floor(Math.random() * 60) + 20;
 
@@ -455,10 +456,17 @@ function App() {
     //change
     //direction
     //sprite
+
+    let newFacingRight = true
+    if (targetX < petPosition.x) {
+      newFacingRight = false
+    }
+
     setTargetPetPosition({
       x: targetX,
       y: targetY,
-      duration: dur
+      duration: dur,
+      facingRight : newFacingRight
     })
   }
 
