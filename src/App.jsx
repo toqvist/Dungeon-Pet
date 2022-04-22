@@ -11,6 +11,7 @@ import NeedBar from './components/NeedBar.jsx'
 import EnterName from './components/EnterName.jsx'
 import { useSpring, animated, easings } from 'react-spring'
 import './app.css'
+import {config as gConfig} from './GameConfig.js'
 
 
 function App() {
@@ -32,6 +33,8 @@ function App() {
   const [emotionFade, setEmotionFade] = useState()
 
   const [adminPanel, setAdminPanel] = useState(false);
+
+  const [randomWander, setRandomWander] = useState(10);
 
   const LOCAL_STORAGE_KEY = 'DungeonPets.Pet';
 
@@ -293,13 +296,18 @@ function App() {
           decayFun = true
         }
 
-        if (newTime % 10 === 0) {
+        if (newTime % randomWander  === 0) {
           wander();
 
           newPet = {
             ...newPet,
             doing: 'run'
           }
+
+          //Generate a random number between wanderFreqLower and wanderFreqUpper
+          // let randomBoundNumber = Math.floor(Math.random() * (gConfig.wanderFreqUpper - gConfig.wanderFreqLower + 1)) + gConfig.wanderFreqLower
+          // randomWander = randomBoundNumber
+          //console.log(randomBoundNumber)
 
           setActivePet(newPet);
         }
@@ -491,6 +499,10 @@ function App() {
       ...activePet,
       doing: 'idle'
     }
+    let randomBoundNumber = Math.floor(Math.random() * (gConfig.wanderFreqUpper - gConfig.wanderFreqLower + 1)) + gConfig.wanderFreqLower
+    setRandomWander(randomBoundNumber)
+    console.log(randomBoundNumber)
+    console.log(randomWander)
     setActivePet(newPet);
   }
 
