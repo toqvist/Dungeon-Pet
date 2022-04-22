@@ -295,6 +295,13 @@ function App() {
 
         if (newTime % 10 === 0) {
           wander();
+
+          newPet = {
+            ...newPet,
+            doing: 'run'
+          }
+
+          setActivePet(newPet);
         }
       }
 
@@ -384,13 +391,18 @@ function App() {
   }
 
   //Should always be used to update pet, 
-  function updateSpriteAnimations(newPet) {
+  function updateSpriteAnimations(newPet, newActiveSprite) {
     const age = newPet.age
     //Get the appropriate sprites for the current pet
     const pet = petList.find(pet => pet.type === newPet.type);
     const newIdle = pet[age].idle
     const newHatching = pet[age].hatching
     const newRun = pet[age].run;
+
+    let newActive = newIdle
+    if (newActiveSprite) {
+      newActive = newActiveSprite
+    }
 
     const newAnimProps = getAnimProps(age);
 
@@ -399,7 +411,8 @@ function App() {
       idle: newIdle,
       hatching: newHatching,
       run: newRun,
-      animProps: newAnimProps
+      activeSprite: newActive,
+      animProps: newAnimProps,
     });
     //console.log(newAnimProps)
   }
@@ -418,7 +431,8 @@ function App() {
       transform: `translate(-50%, -50%) rotateY(${targetPetPosition.facingRight ? 0 : 180}deg)`,
       top: `${targetPetPosition.y}%`,
       left: `${targetPetPosition.x}%`,
-    }
+    },
+    onRest : () => (setIdleSprite())
   })
 
   function solveDuration(newX, newY, oldPosition, speed) {
@@ -457,6 +471,8 @@ function App() {
     //direction
     //sprite
 
+    // updateSpriteAnimations(newPet, runa, );
+
     let newFacingRight = true
     if (targetX < petPosition.x) {
       newFacingRight = false
@@ -466,8 +482,16 @@ function App() {
       x: targetX,
       y: targetY,
       duration: dur,
-      facingRight : newFacingRight
+      facingRight: newFacingRight
     })
+  }
+
+  function setIdleSprite() {
+    const newPet = {
+      ...activePet,
+      doing: 'idle'
+    }
+    setActivePet(newPet);
   }
 
   return (
@@ -478,7 +502,8 @@ function App() {
         {/* GAME ACTIONS */}
         <nav className={`top-bar `}>
           {activePet ? <>
-
+            {/* <img src={activePet.activeSprite} alt="" /> */}
+            
             <div className={`needs ${activePet.age != 'egg' ? 'visible' : ''}`}>
               <NeedBar need={activePet.food} needMax={activePet.maxFood} icon={'🍏'} />
               <NeedBar need={activePet.fun} needMax={activePet.maxFun} icon={'❤️'} />
@@ -529,6 +554,7 @@ function App() {
         {/* ADMIN PANEL */}
         {adminPanel && activePet ? <>
           <nav className='admin-panel'>
+
             <button onClick={() => setTargetPetPosition({ x: 20, y: 50 })}>left</button>
             <button onClick={() => setTargetPetPosition({ x: 80, y: 50 })}>right</button>
             <button onClick={() => resetPet()}>New pet</button>

@@ -9,7 +9,6 @@ import { getEmotionSprite } from '../Emotions.js'
 
 export default function Pet({ activePet, hatchEgg, showEmotion }) {
 
-    const [facing, setFacing] = useState("");
 
     function handleClick() {
 
@@ -21,7 +20,23 @@ export default function Pet({ activePet, hatchEgg, showEmotion }) {
     }
 
     function pet() {
-        
+
+    }
+
+    const idling = () => {
+        if (activePet.doing === 'idle') {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    const running = () => {
+        if (activePet.doing === 'run') {
+            return true
+        } else {
+            return false
+        }
     }
 
 
@@ -32,27 +47,43 @@ export default function Pet({ activePet, hatchEgg, showEmotion }) {
                 <div className='emotion-bubble '>
 
 
-                    {showEmotion && <EmotionBubble emotion={getEmotionSprite(activePet.emotion)} 
-                    className='emotion-bubble'/>}
+                    {showEmotion && <EmotionBubble emotion={getEmotionSprite(activePet.emotion)}
+                        className='emotion-bubble' />}
 
                     {/* {showEmotion 
                     ? 
                     : <EmotionBubble emotion={bubbleout} frame={1} />
                            
                     } */}
-             
-                    
-                </div>
-                <SpriteAnimator
-                    sprite={activePet.idle}
-                    shouldAnimate={activePet.animProps.shouldAnimate}
-                    frameCount={activePet.animProps.frameCount}
-                    fps={activePet.animProps.fps}
-                    width={activePet.animProps.width}
-                    height={activePet.animProps.height}
-                    className={`${facing ? 'facing-left' : ''}`}
-                />
 
+
+                </div>
+                {idling() &&
+
+                    <SpriteAnimator
+                        sprite={activePet.idle}
+                        shouldAnimate={activePet.animProps.shouldAnimate}
+                        frameCount={activePet.animProps.frameCount}
+                        fps={activePet.animProps.fps}
+                        width={activePet.animProps.width}
+                        height={activePet.animProps.height}
+                    // className={`${facing ? 'facing-left' : ''}`}
+                    />
+                }
+
+                {running() &&
+
+                    <SpriteAnimator
+                        sprite={activePet.run}
+                        shouldAnimate={activePet.animProps.shouldAnimate}
+                        frameCount={activePet.animProps.frameCount}
+                        fps={activePet.animProps.fps}
+                        width={activePet.animProps.width}
+                        height={activePet.animProps.height}
+                    // className={`${facing ? 'facing-left' : ''}`}
+                    />
+
+                }
             </button>
         </>
     )

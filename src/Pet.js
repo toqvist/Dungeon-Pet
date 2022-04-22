@@ -31,14 +31,28 @@ export class Pet {
         this.idle = pet[age].idle
         this.hatching = pet[age].hatching
         this.run = pet[age].run;
+
+        console.log(this.idle)
+        console.log(this.run)
+        console.log(pet[age].run)
         
         //AnimProp is an object with properties related to sprite animation speed and size
         this.animProps = getAnimProps(this.age);
 
         this.doing = 'idle';
-        this.facingRight = true;
+        this.activeSprite = this.idle
         this.speed = 10;
 
         this.secondsAlive = 0
+    }
+
+    getIdle() {
+        return this.idle;
+    }
+    gethatching() {
+        return this.hatching;
+    }
+    getRun() {
+        return this.run;
     }
 }

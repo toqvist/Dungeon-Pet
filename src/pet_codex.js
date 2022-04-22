@@ -61,6 +61,7 @@ export const orky = {
     egg: {
         idle: orkyEggIdle,
         hatching: orkyEggHatching,
+        run: orkyEggHatching,
     },
     baby: {
         idle: orkyBabyIdle,
@@ -86,6 +87,7 @@ export const shroomy = {
     egg: {
         idle: shroomyEggIdle,
         hatching: shroomyEggHatching,
+        run: shroomyEggHatching,
     },
     baby: {
         idle: shroomyBabyIdle,
@@ -110,6 +112,7 @@ export const impy = {
     egg: {
         idle: impyEggIdle,
         hatching: impyEggHatching,
+        run: impyEggHatching,
     },
     baby: {
         idle: impyBabyIdle,
@@ -134,6 +137,7 @@ export const valiant = {
     egg: {
         idle: valiantEggIdle,
         hatching: valiantEggHatching,
+        run: valiantEggHatching,
     },
     baby: {
         idle: valiantBabyIdle,
@@ -158,6 +162,7 @@ export const zomby = {
     egg: {
         idle: zombyEggIdle,
         hatching: zombyEggHatching,
+        run: zombyEggHatching,
     },
     baby: {
         idle: zombyBabyIdle,
@@ -192,7 +197,7 @@ export function getAnimProps(age) {
             height: 32,
             width: 32,
             frameCount: 4,
-            fps: 6,
+            fps: 8,
         }
     }
     if (age === 'teen') {
@@ -200,7 +205,7 @@ export function getAnimProps(age) {
             height: 32,
             width: 32,
             frameCount: 4,
-            fps: 6,
+            fps: 8,
         }
     }
     if (age === 'adult') {
@@ -208,7 +213,7 @@ export function getAnimProps(age) {
             height: 32,
             width: 32,
             frameCount: 4,
-            fps: 6,
+            fps: 8,
         }
     }
     if (age === 'dead') {
