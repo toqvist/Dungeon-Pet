@@ -336,7 +336,7 @@ function App() {
 
       if (emotionFade) {
         setEmotionFade(emotionFade - 1)
-        console.log('emotion fade: ' + emotionFade)
+        // console.log('emotion fade: ' + emotionFade)
       }
 
       if (emotionFade <= 0) {
@@ -465,8 +465,8 @@ function App() {
   function wander() {
 
     //Generate a random position within the centre of the game grid
-    const newX = Math.floor(Math.random() * 70) + 10;
-    const newY = Math.floor(Math.random() * 60) + 20;
+    const newX = Math.floor(Math.random() * (100 - gConfig.wanderXBound*2)) + gConfig.wanderXBound;
+    const newY = Math.floor(Math.random() * (100 - gConfig.wanderYBound*2)) + gConfig.wanderYBound;
 
     //calculate the distance between the pet and the target position
 
@@ -501,8 +501,6 @@ function App() {
     }
     let randomBoundNumber = Math.floor(Math.random() * (gConfig.wanderFreqUpper - gConfig.wanderFreqLower + 1)) + gConfig.wanderFreqLower
     setRandomWander(randomBoundNumber)
-    console.log(randomBoundNumber)
-    console.log(randomWander)
     setActivePet(newPet);
   }
 
