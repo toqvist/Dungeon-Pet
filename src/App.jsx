@@ -30,7 +30,8 @@ function App() {
   const [promptFade, setPromptFade] = useState();
 
   const [showEmotion, setShowEmotion] = useState(false)
-  const [emotionFade, setEmotionFade] = useState()
+  // const [emotionFade, setEmotionFade] = useState()
+  let emotionFade = useRef(0);
 
   const [adminPanel, setAdminPanel] = useState(false);
 
@@ -67,7 +68,6 @@ function App() {
 
     let newPet = new Pet(type, 'egg');
     setActivePet(newPet);
-    console.log(newPet);
     setPrompt("Click egg to hatch")
   }
   useInterval(passTime, 1000);
@@ -83,7 +83,7 @@ function App() {
 
     if (activePet.isAlive && activePet.age != 'egg') {
       setShowEmotion(true)
-      setEmotionFade(duration)
+      emotionFade.current = duration
     }
   }
 
@@ -116,7 +116,7 @@ function App() {
     setAnimProps(getAnimProps("egg"));
     setModalIsOpen(false);
     setShowEmotion(false)
-    setEmotionFade()
+    emotionFade.current = 0;
 
   }
 
@@ -234,7 +234,7 @@ function App() {
     }
 
     updateSpriteAnimations(newPet)
-    emotionBubble(2);
+    emotionBubble(4);
   }
 
   function entertainPet(funValue) {
@@ -252,7 +252,7 @@ function App() {
     }
 
     updateSpriteAnimations(newPet)
-    emotionBubble(2);
+    emotionBubble(4);
   }
 
   function petDie(unfortunatePet) {
@@ -306,11 +306,6 @@ function App() {
             doing: 'run'
           }
 
-          //Generate a random number between wanderFreqLower and wanderFreqUpper
-          // let randomBoundNumber = Math.floor(Math.random() * (gConfig.wanderFreqUpper - gConfig.wanderFreqLower + 1)) + gConfig.wanderFreqLower
-          // randomWander = randomBoundNumber
-          //console.log(randomBoundNumber)
-
           setActivePet(newPet);
         }
       }
@@ -335,15 +330,16 @@ function App() {
         setPrompt('')
 
       }
-
-      if (emotionFade) {
-        setEmotionFade(emotionFade - 1)
-        // console.log('emotion fade: ' + emotionFade)
+      
+      if (emotionFade.current > 0) {
+        // setEmotionFade(emotionFade - 1)
+        emotionFade.current -= 1
+        
       }
 
-      if (emotionFade <= 0) {
+      if (emotionFade.current <= 0) {
         setShowEmotion(false)
-
+        emotionFade.current=0
       }
     }
   }
@@ -424,7 +420,6 @@ function App() {
       activeSprite: newActive,
       animProps: newAnimProps,
     });
-    //console.log(newAnimProps)
   }
 
 
