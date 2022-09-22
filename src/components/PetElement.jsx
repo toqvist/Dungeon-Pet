@@ -7,7 +7,7 @@ import EmotionBubble from './EmotionBubble.jsx'
 import bubbleout from '../sprites/emotions/bubbleout.svg'
 import { getEmotionSprite } from '../Emotions.js'
 
-export default function Pet({ activePet, hatchEgg, showEmotion }) {
+export default function Pet({ activePet, hatchEgg, showEmotion, promptFade }) {
 
 
     function handleClick() {

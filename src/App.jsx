@@ -1,17 +1,19 @@
 import { useState, useEffect, useRef } from 'react'
-import { SpriteAnimator } from 'react-sprite-animator'
-import { orky, shroomy, valiant, impy, zomby, getAnimProps, petList } from './pet_codex.js'
+import {getAnimProps, petList } from './pet_codex.js'
 import { Pet } from './Pet.js'
 
+import PetStorage from './components/PetStorage.jsx'
 import Eggs from './components/Eggs.jsx'
 import PetElement from './components/PetElement.jsx'
 import NewPetButton from './components/NewPetButton.jsx'
 import set from "./sprites/set.svg";
 import NeedBar from './components/NeedBar.jsx'
 import EnterName from './components/EnterName.jsx'
+import LoginForm from './components/LoginForm.jsx'
 import { useSpring, animated, easings } from 'react-spring'
 import './app.css'
-import {config as gConfig} from './GameConfig.js'
+import { config as gConfig } from './GameConfig.js'
+
 
 
 function App() {
@@ -35,34 +37,11 @@ function App() {
 
   const [adminPanel, setAdminPanel] = useState(false);
 
-  
 
-  const LOCAL_STORAGE_KEY = 'DungeonPets.Pet';
 
-  useEffect(() => {
-    const storedPet = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
-    if (storedPet) {
-    
-      setActivePet(storedPet)
+  function login () {
 
-      if (storedPet.isAlive) {
-        setPrompt("Welcome back!")
-        promptFade.current = 3
-      } else {
-        setPrompt(`${storedPet.name ? storedPet.name : 'pet'}` + " has died :(")
-      }
-    }
-
-  }, [])
-
-  useEffect(() => {
-    if (activePet) {
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(activePet))
-    } else {
-      localStorage.clear();
-    }
-  }, [activePet])
-
+  }
 
 
   function createPet(type) {
@@ -297,8 +276,8 @@ function App() {
           decayFun = true
         }
 
-        if (newTime % randomWander.current  === 0) {
-          
+        if (newTime % randomWander.current === 0) {
+
           wander();
 
           newPet = {
@@ -306,7 +285,8 @@ function App() {
             doing: 'run'
           }
 
-          // setActivePet(newPet);
+          setActivePet(newPet);
+
         }
       }
 
@@ -329,16 +309,16 @@ function App() {
       if (promptFade.current <= 0) {
         setPrompt('')
       }
-      
+
       if (emotionFade.current > 0) {
         // setEmotionFade(emotionFade - 1)
         emotionFade.current -= 1
-        
+
       }
 
       if (emotionFade.current <= 0) {
         setShowEmotion(false)
-        emotionFade.current=0
+        emotionFade.current = 0
       }
     }
   }
@@ -436,7 +416,7 @@ function App() {
       top: `${targetPetPosition.y}%`,
       left: `${targetPetPosition.x}%`,
     },
-    onRest : () => (setIdleSprite())
+    onRest: () => (setIdleSprite())
   })
 
   function solveDuration(newX, newY, oldPosition, speed) {
@@ -461,8 +441,8 @@ function App() {
   function wander() {
 
     //Generate a random position within the centre of the game grid
-    const newX = Math.floor(Math.random() * (100 - gConfig.wanderXBound*2)) + gConfig.wanderXBound;
-    const newY = Math.floor(Math.random() * (100 - gConfig.wanderYBound*2)) + gConfig.wanderYBound;
+    const newX = Math.floor(Math.random() * (100 - gConfig.wanderXBound * 2)) + gConfig.wanderXBound;
+    const newY = Math.floor(Math.random() * (100 - gConfig.wanderYBound * 2)) + gConfig.wanderYBound;
 
     //calculate the distance between the pet and the target position
 
@@ -508,7 +488,7 @@ function App() {
         <nav className={`top-bar `}>
           {activePet ? <>
             {/* <img src={activePet.activeSprite} alt="" /> */}
-            
+
             <div className={`needs ${activePet.age != 'egg' ? 'visible' : ''}`}>
               <NeedBar need={activePet.food} needMax={activePet.maxFood} icon={'🍏'} />
               <NeedBar need={activePet.fun} needMax={activePet.maxFun} icon={'❤️'} />
@@ -559,6 +539,7 @@ function App() {
         {/* ADMIN PANEL */}
         {adminPanel && activePet ? <>
           <nav className='admin-panel'>
+
             <button onClick={() => resetPet()}>New pet</button>
             <button onClick={() => growPet()}>Grow pet</button>
             <button onClick={() => setModalIsOpen(!modalIsOpen)}>Name pet</button>
@@ -572,6 +553,15 @@ function App() {
           :
           <button onClick={() => setAdminPanel(true)}>Admin Panel</button>
         }
+        <PetStorage showButtons={true}
+          activePet={activePet}
+          setPrompt={setPrompt}
+          setActivePet={setActivePet}
+          promptFade={promptFade}
+        />
+
+        <LoginForm
+        />
       </div>
 
     </div>
