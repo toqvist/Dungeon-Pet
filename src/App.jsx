@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
-import {getAnimProps, petList } from './pet_codex.js'
+import { getAnimProps, petList } from './pet_codex.js'
 import { Pet } from './Pet.js'
 
-import PetStorage from './components/PetStorage.jsx'
+import APIHelper from './components/APIHelper.jsx'
 import Eggs from './components/Eggs.jsx'
 import PetElement from './components/PetElement.jsx'
 import NewPetButton from './components/NewPetButton.jsx'
@@ -15,10 +15,11 @@ import './app.css'
 import { config as gConfig } from './GameConfig.js'
 
 
-
 function App() {
 
-  const [activePet, setActivePet] = useState();
+  const [activeUser, setActiveUser] = useState(null)
+
+  const [activePet, setActivePet] = useState(null);
 
   const [petPosition, setPetPosition] = useState({ x: 50, y: 50 });
   const [targetPetPosition, setTargetPetPosition] = useState({ x: 50, y: 50 });
@@ -37,10 +38,39 @@ function App() {
 
   const [adminPanel, setAdminPanel] = useState(false);
 
+  function login(inputUsername, inputPassword) {
+    const API_LOAD = 'http://localhost:8080/login';
 
+    const loginJSON = {
+      username: inputUsername,
+      password: inputPassword
+    }
 
-  function login () {
+    fetch(API_LOAD, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      },
+      body: loginJSON
+    }.then(response => response.json())
+      .then(res => {
+        if (res.authentication === "success") {
 
+          setPrompt("Logged in!");
+        } else {
+          setPrompt("Login failed!");
+        }
+      }))
+  }
+
+  function logout() {
+    setActiveUser(null);
+    setActivePet(null);
+  }
+
+  function loadPet(username, password) {
+    const API_LOAD = 'http://localhost:8080/load';
   }
 
 
@@ -553,15 +583,16 @@ function App() {
           :
           <button onClick={() => setAdminPanel(true)}>Admin Panel</button>
         }
-        <PetStorage showButtons={true}
+        <APIHelper showButtons={true}
           activePet={activePet}
           setPrompt={setPrompt}
           setActivePet={setActivePet}
           promptFade={promptFade}
+          activeUser={activeUser}
         />
 
-        <LoginForm
-        />
+        {activeUser ? <button onClick={logout}>Logout</button>
+          : <LoginForm login={login} />}
       </div>
 
     </div>

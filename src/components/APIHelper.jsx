@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect, useRef } from 'react'
 
-export default function PetStorage({ showButtons, setPrompt, activePet, setActivePet, promptFade }) {
+export default function PetStorage({ showButtons, setPrompt, activePet, setActivePet, promptFade, activeUser }) {
 
     const LOCAL_STORAGE_KEY = 'DungeonPets.Pet';
 
@@ -10,16 +10,20 @@ export default function PetStorage({ showButtons, setPrompt, activePet, setActiv
     const API_TEST = 'http://localhost:8080/test';
 
     function loadPet() {
+
+        const json = JSON.stringify({username : "admin"})
+
+        console.log("attempting load")
         fetch(API_LOAD, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*'
             },
-            body: ""
+            body: json
         }).then(response => response.json())
         .then(petObject => {
-
+            console.log(petObject)
             setActivePet(petObject)
             setPrompt("Pet loaded!");
         });
@@ -29,7 +33,7 @@ export default function PetStorage({ showButtons, setPrompt, activePet, setActiv
     function savePet() {
         let petJSON = JSON.stringify(activePet);
 
-        fetch(API_TEST, {
+        fetch(API_SAVE, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -40,9 +44,27 @@ export default function PetStorage({ showButtons, setPrompt, activePet, setActiv
 
             setPrompt("Pet saved!");
         });
+    }
 
+    function test() {
+        let petJSON = JSON.stringify(activePet);
+        
+        fetch(API_TEST, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
+            body: petJSON
+        }).then(response => response.json())
+        .then(petObject => {
+
+            console.log(petObject)
+            setPrompt("Pet logged!");
+        });
 
     }
+
 
     useEffect(() => {
         const storedPet = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
@@ -76,6 +98,7 @@ export default function PetStorage({ showButtons, setPrompt, activePet, setActiv
                 <>
                     <button onClick={loadPet}>Load</button>
                     <button onClick={savePet}>Save</button>
+                    <button onClick={test}>Test</button>
 
                 </>
             }
