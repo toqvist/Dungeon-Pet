@@ -17,7 +17,7 @@ import { config as gConfig } from './GameConfig.js'
 
 function App() {
 
-  const [activeUser, setActiveUser] = useState(null)
+  const [activeUser, setActiveUser] = useState("admin")
 
   const [activePet, setActivePet] = useState(null);
 
@@ -38,35 +38,69 @@ function App() {
 
   const [adminPanel, setAdminPanel] = useState(false);
 
+  useInterval(passTime, 1000);
+
   function login(inputUsername, inputPassword) {
-    const API_LOAD = 'http://localhost:8080/login';
+    const API_LOGIN = 'http://localhost:8080/login';
 
-    const loginJSON = {
-      username: inputUsername,
-      password: inputPassword
-    }
+    const loginJSON = JSON.stringify({
+      username : inputUsername,
+      password : inputPassword
+    })
 
-    fetch(API_LOAD, {
+    fetch(API_LOGIN, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
       },
       body: loginJSON
-    }.then(response => response.json())
-      .then(res => {
-        if (res.authentication === "success") {
+    }).then(res => {
+      if (res != 'failed') {
+        setActivePet(res)
+        setActiveUser(inputUsername)
+      } else {
+        setActivePet(null)
+        setPrompt("Login failed");
+      }
+    });
 
-          setPrompt("Logged in!");
-        } else {
-          setPrompt("Login failed!");
-        }
-      }))
   }
 
   function logout() {
     setActiveUser(null);
     setActivePet(null);
+  }
+
+  function register(inputUsername, inputPassword) {
+
+    const API_REGISTER = 'http://localhost:8080/createUser';
+
+    const json = JSON.stringify(
+      {
+        username: inputUsername,
+        password: inputPassword,
+        petJSON: activePet
+      }
+    )
+
+    fetch(API_REGISTER, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      },
+      body: json
+    }.then(response => response.json())
+      .then(res => {
+        if (res.authentication === "success") {
+
+          setPrompt("Registered new user!");
+        } else {
+          setPrompt("Registration failed");
+        }
+      }))
+
   }
 
   function loadPet(username, password) {
@@ -80,7 +114,7 @@ function App() {
     setActivePet(newPet);
     setPrompt("Click egg to hatch")
   }
-  useInterval(passTime, 1000);
+  
 
   function closeModal() {
     setModalIsOpen(false);
@@ -592,7 +626,7 @@ function App() {
         />
 
         {activeUser ? <button onClick={logout}>Logout</button>
-          : <LoginForm login={login} />}
+          : <LoginForm login={login} register={register} />}
       </div>
 
     </div>

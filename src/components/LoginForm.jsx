@@ -1,9 +1,9 @@
 import React, { useRef } from 'react'
 
-export default function UserForm({login}) {
+export default function UserForm({login, register}) {
 
-    const usernameRef = useRef();
-    const passwordRef = useRef();
+    let usernameRef = useRef();
+    let passwordRef = useRef();
 
     return (
         <div>
@@ -15,8 +15,8 @@ export default function UserForm({login}) {
                 ref={passwordRef}
                 placeholder='Password'
             />
-            <button onClick={() => {login(usernameRef, passwordRef)}}>Login</button>
-
+            <button onClick={() => {login(usernameRef.current.value, passwordRef.current.value)}}>Login</button>
+            <button onClick={() => {register(usernameRef.current.value, passwordRef.current.value)}}>Register</button>
         </div>
     )
 }

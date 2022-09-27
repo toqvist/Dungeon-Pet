@@ -9,9 +9,22 @@ export default function PetStorage({ showButtons, setPrompt, activePet, setActiv
     const API_SAVE = 'http://localhost:8080/save';
     const API_TEST = 'http://localhost:8080/test';
 
+    function buildJSON() {
+
+        const json = JSON.stringify(
+            {
+                petJSON: activePet,
+                username: activeUser
+            }
+        )
+        console.log(json)
+        return json;
+
+    }
+
     function loadPet() {
 
-        const json = JSON.stringify({username : "admin"})
+        const json = JSON.stringify({username : activeUser})
 
         console.log("attempting load")
         fetch(API_LOAD, {
@@ -22,16 +35,16 @@ export default function PetStorage({ showButtons, setPrompt, activePet, setActiv
             },
             body: json
         }).then(response => response.json())
-        .then(petObject => {
-            console.log(petObject)
-            setActivePet(petObject)
-            setPrompt("Pet loaded!");
-        });
+            .then(petObject => {
+                console.log(petObject)
+                setActivePet(petObject)
+                setPrompt("Pet loaded!");
+            });
 
     }
 
     function savePet() {
-        let petJSON = JSON.stringify(activePet);
+        let petJSON = buildJSON();
 
         fetch(API_SAVE, {
             method: "POST",
@@ -47,8 +60,8 @@ export default function PetStorage({ showButtons, setPrompt, activePet, setActiv
     }
 
     function test() {
-        let petJSON = JSON.stringify(activePet);
-        
+        let petJSON = buildJSON();
+
         fetch(API_TEST, {
             method: "POST",
             headers: {
@@ -57,11 +70,11 @@ export default function PetStorage({ showButtons, setPrompt, activePet, setActiv
             },
             body: petJSON
         }).then(response => response.json())
-        .then(petObject => {
+            .then(petObject => {
 
-            console.log(petObject)
-            setPrompt("Pet logged!");
-        });
+                console.log(petObject)
+                setPrompt("Pet logged!");
+            });
 
     }
 
@@ -96,10 +109,12 @@ export default function PetStorage({ showButtons, setPrompt, activePet, setActiv
         <>
             {showButtons &&
                 <>
+                {activeUser && <>
                     <button onClick={loadPet}>Load</button>
                     <button onClick={savePet}>Save</button>
                     <button onClick={test}>Test</button>
 
+                </>}
                 </>
             }
         </>
